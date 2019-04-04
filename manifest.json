@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "name": "Data leakage detector",
+  "version": "1.0",
+  "description": "Identifies too much PII on a page",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "js/functions.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "tabs"
+  ]
+}
