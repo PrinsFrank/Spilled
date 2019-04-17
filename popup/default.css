@@ -1,4 +1,5 @@
 html, body {
+    overflow-x: hidden;
     background-color: #209CEE;
     width: 100%;
 }
@@ -8,7 +9,12 @@ ul{
     padding: 5px 10px;
 }
 
-ul#message-container{
+ul#message-container .error{
     background-color: red;
+    color: white;
+}
+
+ul#message-container .warning{
+    background-color: orange;
     color: white;
 }

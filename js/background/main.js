@@ -25,15 +25,16 @@ Main = {
     listeners: {
         message: function(request, sender, sendResponse) {
             request.messages.forEach(function(message){
-                Main.addMessage(sender.tab.id, message.key, message.text, message.data);
+                Main.addMessage(sender.tab.id, message.key, message.type, message.text, message.data);
             });
         }
     },
-    addMessage: function(tabId, key, text, data = []){
+    addMessage: function(tabId, key, type, text, data = []){
         if(typeof Main.messages[tabId] === 'undefined') {
             Main.messages[tabId] = {};
         }
         Main.messages[tabId][key] = {
+            type: type,
             text: text,
             data: data,
         };

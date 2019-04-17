@@ -45,7 +45,7 @@ cookieFilter = {
                     value = formatConversion.convert.JSON(cookie.value);
                 }
                 if(value !== cookie.value){
-                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'The data for cookie ' + cookie.name + ' could be converted', value);
+                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'The data for cookie ' + cookie.name + ' could be converted', value);
                 }
             },
         },

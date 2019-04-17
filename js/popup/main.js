@@ -9,7 +9,7 @@ Popup = {
             messageHtml = '';
             Object.keys(messages).forEach(function (key) {
                 message = messages[key];
-                messageHtml += '<li>' + message.text + '</li>';
+                messageHtml += '<li id="' + key + '" class="' + message.type + '">' + message.text + '<p>' + message.data + '</p></li>';
             });
 
             Popup.elem.innerHTML = messageHtml;
