@@ -22,6 +22,7 @@ cookieFilter = {
             if(domain === '' || (cookieFilter.domain.isChecked(tabId, domain) && !reload)){
                 return false;
             }
+            console.log('parseAllForDomain triggered for domain: "' + domain + '" with tabid: ' + tabId);
             browser.cookies.getAll({domain: domain}).then((cookies) => {
                 if(!cookies.length){
                     return false;
@@ -51,7 +52,7 @@ cookieFilter = {
     },
     domain: {
         isChecked: function(tabId, domain){
-            if(typeof cookieFilter.checkedCookies[tabId] == 'undefined'){
+            if(typeof cookieFilter.checkedCookies[tabId] === 'undefined'){
                 return false;
             }
             return (domain in cookieFilter.checkedCookies[tabId] || "." + domain in cookieFilter.checkedCookies[tabId]);
@@ -59,11 +60,15 @@ cookieFilter = {
     },
     listeners: {
         cookieChanged: function(changeInfo){
-            if(changeInfo.removed){
+            if(changeInfo.cookie.removed){
                 return false;
             }
 
-            cookieFilter.cookie.parse(changeInfo.cookie);
+            browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
+                tab = tab[0];
+                cookieFilter.cookie.parse(tab.id, changeInfo.cookie);
+                console.log('cookiechanged triggered for "' + changeInfo.cookie.name + '" with tabid: ' + tab.id);
+            });
         },
         urlChanged: function(tabId, changeInfo, tabinfo) {
             browser.tabs.get(tabId).then(function(tab){
