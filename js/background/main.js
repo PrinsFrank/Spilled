@@ -1,3 +1,5 @@
+var browser = browser || chrome;
+
 Main = {
     messages: {},
     init: function(){

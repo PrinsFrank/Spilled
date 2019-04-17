@@ -15,7 +15,6 @@
   "background": {
     "scripts": [
       "js/background/functions/formatConversion.js",
-      "js/background/checkForPII.js",
       "js/background/main.js",
       "js/background/filters/cookies.js"
     ]

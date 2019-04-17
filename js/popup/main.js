@@ -1,3 +1,5 @@
+var browser = browser || chrome;
+
 Popup = {
     backgroundPageContext: browser.extension.getBackgroundPage().Main,
     elem: document.getElementById('message-container'),
