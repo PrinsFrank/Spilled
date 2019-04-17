@@ -13,10 +13,17 @@
     }
   ],
   "background": {
-    "scripts": ["js/background/main.js"]
+    "scripts": [
+      "js/background/functions/formatConversion.js",
+      "js/background/checkForPII.js",
+      "js/background/main.js",
+      "js/background/filters/cookies.js"
+    ]
   },
   "permissions": [
-    "activeTab"
+    "tabs",
+    "cookies",
+    "<all_urls>"
   ],
   "browser_action": {
     "browser_style": true,

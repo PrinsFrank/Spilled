@@ -1,24 +1,44 @@
-DataLeakageManager = {
+Main = {
+    messages: [],
     init: function(){
-        browser.runtime.onMessage.addListener(DataLeakageManager.listeners.message);
+        browser.runtime.onMessage.addListener(Main.listeners.message);
     },
-    count: {
-        update: function(length, tabId) {
+    notificationCount: {
+        update: function(tabId) {
+            count = Main.notificationCount.getFromMessageCount(tabId);
             browser.browserAction.setBadgeText({
-                text: length.toString(),
+                text: count.toString(),
                 tabId: tabId
             });
             browser.browserAction.setBadgeBackgroundColor({
-                'color': (length >= 1)? 'red' : 'green',
+                'color': (count >= 1)? 'red' : 'green',
                 tabId: tabId
             });
         },
+        getFromMessageCount: function(tabId){
+            if(typeof Main.messages[tabId] == 'undefined'){
+                return 0;
+            }
+            return Object.keys(Main.messages[tabId]).length;
+        }
     },
     listeners: {
         message: function(request, sender, sendResponse) {
-            DataLeakageManager.count.update(request.count, sender.tab.id);
+            request.messages.forEach(function(message){
+                Main.addMessage(sender.tab.id, message.key, message.text, message.data);
+            });
         }
+    },
+    addMessage: function(tabId, key, text, data = []){
+        if(typeof Main.messages[tabId] === 'undefined') {
+            Main.messages[tabId] = [];
+        }
+        Main.messages[tabId][key] = {
+            text: text,
+            data: data,
+        };
+        Main.notificationCount.update(tabId);
     },
 };
 
-DataLeakageManager.init();
+Main.init();
