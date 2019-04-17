@@ -34,9 +34,9 @@ cookieFilter = {
         },
         check: {
             all: function(tabId, cookie){
-                cookieFilter.cookie.check.valueReadable(tabId, cookie);
+                cookieFilter.cookie.check.valueExtractable(tabId, cookie);
             },
-            valueReadable: function(tabId, cookie){
+            valueExtractable: function(tabId, cookie){
                 value = cookie.value;
                 if(formatConversion.checkContentType.isValidBase64(cookie.value)){
                     value = formatConversion.convert.base64(cookie.value);
@@ -45,7 +45,7 @@ cookieFilter = {
                     value = formatConversion.convert.JSON(cookie.value);
                 }
                 if(value !== cookie.value){
-                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'The data for cookie ' + cookie.name + ' could be converted', value);
+                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
                 }
             },
         },
