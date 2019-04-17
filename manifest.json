@@ -3,15 +3,30 @@
   "name": "Data leakage detector",
   "version": "1.0",
   "description": "Identifies too much PII on a page",
+  "homepage_url": "https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector",
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
       "js": [
-        "js/functions.js"
+        "js/content/main.js"
       ]
     }
   ],
+  "background": {
+    "scripts": ["js/background/main.js"]
+  },
   "permissions": [
-    "tabs"
+    "activeTab"
+  ],
+  "browser_action": {
+    "browser_style": true,
+    "default_popup": "popup/popup.html",
+    "default_title": "Data Leakage Detector",
+    "default_icon": {
+      "16": "icons/favicon-16.png",
+      "32": "icons/favicon-32.png"
+    }
+  },
+  "web_accessible_resources": [
   ]
 }
