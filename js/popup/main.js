@@ -1,17 +1,16 @@
 Popup = {
     backgroundPageContext: browser.extension.getBackgroundPage().Main,
-    elem: document.querySelector('body'),
+    elem: document.getElementById('message-container'),
     init: function(){
         Popup.updateMessageContent();
     },
     updateMessageContent: function(){
         Popup.getMessages().then(function(messages){
-            messageHtml = '<ul>';
+            messageHtml = '';
             Object.keys(messages).forEach(function (key) {
                 message = messages[key];
                 messageHtml += '<li>' + message.text + '</li>';
             });
-            messageHtml += '</ul>';
 
             Popup.elem.innerHTML = messageHtml;
         });
