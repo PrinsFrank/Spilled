@@ -1,5 +1,5 @@
 Main = {
-    messages: [],
+    messages: {},
     init: function(){
         browser.runtime.onMessage.addListener(Main.listeners.message);
     },
@@ -16,7 +16,7 @@ Main = {
             });
         },
         getFromMessageCount: function(tabId){
-            if(typeof Main.messages[tabId] == 'undefined'){
+            if(typeof Main.messages[tabId] === 'undefined'){
                 return 0;
             }
             return Object.keys(Main.messages[tabId]).length;
@@ -31,7 +31,7 @@ Main = {
     },
     addMessage: function(tabId, key, text, data = []){
         if(typeof Main.messages[tabId] === 'undefined') {
-            Main.messages[tabId] = [];
+            Main.messages[tabId] = {};
         }
         Main.messages[tabId][key] = {
             text: text,
