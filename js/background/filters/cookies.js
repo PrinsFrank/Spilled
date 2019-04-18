@@ -55,6 +55,13 @@ cookieFilter = {
             }
             return (domain in cookieFilter.checkedCookies[tabId] || "." + domain in cookieFilter.checkedCookies[tabId]);
         },
+        getDomainName: function(domain) {
+            // converts www.example.com to example.com but returns example.co.uk
+            let regex_var = new RegExp(/([^\.]*\.(([^\.]{0,2}\.[^\.]{0,2})|([^\.]*)))$/g);
+            let result = domain.match(regex_var);
+
+            return result[0];
+        }
     },
     listeners: {
         cookieChanged: function(changeInfo){
@@ -73,7 +80,8 @@ cookieFilter = {
                 let newHostName = (new URL(tab.url)).hostname;
 
                 if(typeof cookieFilter.checkedCookies[tabId] === 'undefined' || typeof cookieFilter.checkedCookies[tabId][newHostName] === 'undefined') {
-                    cookieFilter.cookie.parseAllForDomain(tabId, newHostName);
+                    domainName = cookieFilter.domain.getDomainName(newHostName);
+                    cookieFilter.cookie.parseAllForDomain(tabId, domainName);
                 }
             });
         }
