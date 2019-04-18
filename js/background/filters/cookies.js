@@ -37,15 +37,13 @@ cookieFilter = {
                 cookieFilter.cookie.check.valueExtractable(tabId, cookie);
             },
             valueExtractable: function(tabId, cookie){
-                value = cookie.value;
-                if(formatConversion.checkContentType.isValidBase64(cookie.value)){
-                    value = formatConversion.convert.base64(cookie.value);
-                }
-                if(formatConversion.checkContentType.isValidJSON(cookie.value)){
-                    value = formatConversion.convert.JSON(cookie.value);
-                }
+                value = formatConversion.extractRecursively(cookie.value);
                 if(value !== cookie.value){
-                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
+                    Main.addMessage(tabId, 'data-extractable-'+ cookie.name, 'warning', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
+                    return;
+                }
+                if(formatConversion.checkContentType.isReadableString(value)){
+                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is readable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
                 }
             },
         },

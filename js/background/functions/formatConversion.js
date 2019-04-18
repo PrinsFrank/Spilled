@@ -1,5 +1,8 @@
 formatConversion = {
     checkContentType: {
+        isValidBool: function(str){
+            return (str === '1' || str === '0' || str === 'true' || str === 'false');
+        },
         isValidBase64: function(str){
             if (str ==='' || str.trim() ===''){ return false; }
             try {
@@ -15,6 +18,15 @@ formatConversion = {
                 return false;
             }
             return true;
+        },
+        isValidTimeStamp: function(str) {
+            return (new Date(str)) > 0;
+        },
+        isValidTimeStampWithOutMillis: function(str) {
+            return formatConversion.checkContentType.isValidTimeStamp(str * 1000);
+        },
+        isReadableString: function(str) {
+            return /^[A-z0-9]$/.test(str);
         }
     },
     checkByType: {
@@ -28,8 +40,32 @@ formatConversion = {
 
             return Base64.decode(base64);
         },
-        JSON: function(json) {
-            return JSON.parse(json);
+        timeStamp: function(str){
+            return (new Date(str)).toString();
+        },
+        timeStampWithOutMillis: function(str){
+            return formatConversion.convert.timeStamp(str * 1000);
+        },
+        boolean: function(value){
+            return (value === '1' || value === 'true') ? 'true' : false;
         }
     },
+    extractRecursively: function(value, depth = 0){
+        if(depth >= 10){return value;}depth++; //Check if our totem is spinning
+        extractedValue = value; // Make a copy so we can test if this value is changed later
+
+        // The data in these types are resolved so we can return them formatted
+        if(formatConversion.checkContentType.isValidBool(value)){return formatConversion.convert.boolean(value);}
+        if(formatConversion.checkContentType.isValidTimeStamp(value)){return formatConversion.convert.timeStamp(value);}
+        if(formatConversion.checkContentType.isValidTimeStampWithOutMillis(value)){return formatConversion.convert.timeStampWithOutMillis(value);}
+        if(formatConversion.checkContentType.isValidJSON(value)){return value;}
+        if(formatConversion.checkContentType.isReadableString(value)){return value;}
+
+        // Convert the data
+        if(formatConversion.checkContentType.isValidBase64(value)){extractedValue = formatConversion.convert.base64(value);}
+
+        // Check if this step didn't resolve anything so we have our final value
+        if(extractedValue === value){return extractedValue;}
+        return formatConversion.extractRecursively(extractedValue, depth++);
+    }
 };
