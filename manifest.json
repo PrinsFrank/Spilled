@@ -32,7 +32,5 @@
       "16": "icons/favicon-16.png",
       "32": "icons/favicon-32.png"
     }
-  },
-  "web_accessible_resources": [
-  ]
+  }
 }
