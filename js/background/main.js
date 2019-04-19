@@ -4,6 +4,7 @@ Main = {
     storage: {},
     init: function(){
         browser.runtime.onMessage.addListener(Main.listeners.message);
+        browser.tabs.onUpdated.addListener(Main.listeners.tabUpdated);
     },
     notificationCount: {
         update: function(tabId) {
@@ -40,6 +41,13 @@ Main = {
         message: function(request, sender, sendResponse) {
             request.storage.forEach(function(message){
                 Main.addMessage(sender.tab.id, message.key, message.type, message.text, message.data);
+            });
+        },
+        tabUpdated: function(tabId, changeInfo, tabinfo){
+            browser.tabs.get(tabId).then(function(tab){
+                if(tab.url.startsWith('moz-extension://')){
+                    browser.browserAction.disable(tab.id);
+                }
             });
         }
     },
