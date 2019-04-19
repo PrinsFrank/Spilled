@@ -1,3 +1,10 @@
+* {
+    /* Selecting text is disabled when using browser styles
+       https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/user_interface/Browser_styles */
+    user-select: auto;
+    -moz-user-select : auto;
+}
+
 html, body {
     overflow-x: hidden;
     background-color: #FFF;
