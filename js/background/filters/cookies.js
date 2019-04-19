@@ -40,7 +40,7 @@ cookieFilter = {
             },
             valueMeaningfull: function(tabId, cookie){
                 if(false !== formatConversion.isMeaningfulData(cookie.value)){
-                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is readable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', formatConversion.isMeaningfulData(cookie.value));
+                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is readable data present in <b>cookie</b> "<i>' + cookie.name + '</i>" set for domain: "<i>' + cookie.domain + '</i>"', formatConversion.isMeaningfulData(cookie.value));
                     return true;
                 }
                 return false;
@@ -48,7 +48,7 @@ cookieFilter = {
             valueExtractable: function(tabId, cookie){
                 value = formatConversion.extractRecursively(cookie.value);
                 if(value !== cookie.value && false !== formatConversion.isMeaningfulData(value)){
-                    Main.addMessage(tabId, 'data-extractable-'+ cookie.name, 'error', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', formatConversion.isMeaningfulData(value));
+                    Main.addMessage(tabId, 'data-extractable-'+ cookie.name, 'error', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>" set for domain: "<i>' + cookie.domain + '</i>"', formatConversion.isMeaningfulData(value));
                 }
             },
         },
