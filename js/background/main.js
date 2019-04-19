@@ -44,7 +44,7 @@ Main = {
             });
         },
         tabUpdated: function(tabId, changeInfo, tabinfo){
-            browser.tabs.get(tabId).then(function(tab){
+            browser.tabs.get(tabId, function(tab){
                 if(tab.url.startsWith('moz-extension://')){
                     browser.browserAction.disable(tab.id);
                 }

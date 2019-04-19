@@ -22,7 +22,7 @@ cookieFilter = {
             if(domain === '' || (cookieFilter.domain.isChecked(tabId, domain) && !reload)){
                 return false;
             }
-            browser.cookies.getAll({domain: domain}).then((cookies) => {
+            browser.cookies.getAll({domain: domain}, function(cookies) {
                 if(!cookies.length){
                     return false;
                 }
@@ -32,7 +32,7 @@ cookieFilter = {
             });
         },
         parseAll: function(tabId){
-            browser.cookies.getAll({}).then((cookies) => {
+            browser.cookies.getAll({}, function(cookies) {
                 if(!cookies.length){
                     return false;
                 }
@@ -83,16 +83,16 @@ cookieFilter = {
                 return false;
             }
 
-            browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
+            browser.tabs.query({currentWindow: true, active: true}, function(tab){
                 tab = tab[0];
                 cookieFilter.cookie.parse(tab.id, changeInfo.cookie);
             });
         },
         tabUpdated: function(tabId, changeInfo, tabinfo) {
-            browser.tabs.get(tabId).then(function(tab){
+            browser.tabs.get(tabId, function(tab){
                 let newHostName = (new URL(tab.url)).hostname;
                 if(newHostName === ''){return;}
-                if(tab.url.startsWith('moz-extension://')){cookieFilter.cookie.parseAll(tabId);return;}
+                if(tab.url.startsWith('moz-extension://') || tab.url.startsWith('chrome-extension://')){cookieFilter.cookie.parseAll(tabId);return;}
                 if(typeof cookieFilter.checkedCookies[tabId] === 'undefined' || typeof cookieFilter.checkedCookies[tabId][newHostName] === 'undefined') {
                     domainName = cookieFilter.domain.getDomainName(newHostName);
                     cookieFilter.cookie.parseAllForDomain(tabId, domainName);

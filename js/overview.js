@@ -4,7 +4,7 @@ Overview = {
     backgroundPageContext: browser.extension.getBackgroundPage(),
     messageContainer: document.getElementById('message-container'),
     init: function(){
-        browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
+        browser.tabs.query({currentWindow: true, active: true}, function(tab){
             tab = tab[0];
             Overview.updateMessageContent(Overview.backgroundPageContext.Main.getMessagesForTab(tab.id))
         });
