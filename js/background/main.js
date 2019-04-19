@@ -13,7 +13,7 @@ Main = {
                 tabId: tabId
             });
             browser.browserAction.setBadgeBackgroundColor({
-                'color': (count.error > 0)? 'red' : 'orange',
+                color: (count.error > 0)? 'red' : 'orange',
                 tabId: tabId
             });
         },
@@ -22,7 +22,7 @@ Main = {
             return count.warning.toString() > 0 ? count.error.toString() + '+' : count.error.toString();
         },
         getFromMessageCount: function(tabId){
-            if(typeof Main.storage[tabId] === 'undefined'){return {warning: {}, error: {}};}
+            if(typeof Main.storage[tabId] === 'undefined'){return {warning: 0, error: 0};}
             return {
                 warning: Object.keys(Main.storage[tabId]['warning']).length,
                 error: Object.keys(Main.storage[tabId]['error']).length,
@@ -37,15 +37,18 @@ Main = {
         }
     },
     addMessage: function(tabId, key, type, text, data = []){
-        if(typeof Main.storage[tabId] === 'undefined') {
-            Main.storage[tabId] = {warning: {}, error: {}};
-        }
+        if(typeof Main.storage[tabId] === 'undefined') {Main.storage[tabId] = {warning: {}, error: {}};}
         Main.storage[tabId][type][key] = {
             type: type,
             text: text,
             data: data,
         };
         Main.notificationCount.update(tabId);
+    },
+    getMessagesForTab: function(tabId, type = null) {
+        if(typeof Main.storage[tabId] === 'undefined') {Main.storage[tabId] = {warning: {}, error: {}};}
+        if(type !== null){return Main.storage[tabId][type];}
+        return Main.storage[tabId];
     },
 };
 
