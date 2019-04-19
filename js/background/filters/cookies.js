@@ -83,7 +83,7 @@ cookieFilter = {
         urlChanged: function(tabId, changeInfo, tabinfo) {
             browser.tabs.get(tabId).then(function(tab){
                 let newHostName = (new URL(tab.url)).hostname;
-
+                if(newHostName === ''){return;}
                 if(typeof cookieFilter.checkedCookies[tabId] === 'undefined' || typeof cookieFilter.checkedCookies[tabId][newHostName] === 'undefined') {
                     domainName = cookieFilter.domain.getDomainName(newHostName);
                     cookieFilter.cookie.parseAllForDomain(tabId, domainName);
