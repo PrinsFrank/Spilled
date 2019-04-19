@@ -100,7 +100,6 @@ cookieFilter = {
                     cookieFilter.cookie.parseAllForDomain(tabId, domainName);
                 }
             });
-            Main.notificationCount.update(tabId);
         }
     }
 };
