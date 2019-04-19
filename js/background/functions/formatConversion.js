@@ -55,11 +55,7 @@ formatConversion = {
         extractedValue = value; // Make a copy so we can test if this value is changed later
 
         // The data in these types are resolved so we can return them formatted
-        if(formatConversion.checkContentType.isValidBool(value)){return formatConversion.convert.boolean(value);}
-        if(formatConversion.checkContentType.isValidTimeStamp(value)){return formatConversion.convert.timeStamp(value);}
-        if(formatConversion.checkContentType.isValidTimeStampWithOutMillis(value)){return formatConversion.convert.timeStampWithOutMillis(value);}
-        if(formatConversion.checkContentType.isValidJSON(value)){return value;}
-        if(formatConversion.checkContentType.isReadableString(value)){return value;}
+        if(formatConversion.isMeaningfulData(value)){return formatConversion.isMeaningfulData(value)}
 
         // Convert the data
         if(formatConversion.checkContentType.isValidBase64(value)){extractedValue = formatConversion.convert.base64(value);}
@@ -67,5 +63,13 @@ formatConversion = {
         // Check if this step didn't resolve anything so we have our final value
         if(extractedValue === value){return extractedValue;}
         return formatConversion.extractRecursively(extractedValue, depth++);
+    },
+    isMeaningfulData: function(value){
+        if(formatConversion.checkContentType.isValidBool(value)){return formatConversion.convert.boolean(value);}
+        if(formatConversion.checkContentType.isValidTimeStamp(value)){return formatConversion.convert.timeStamp(value);}
+        if(formatConversion.checkContentType.isValidTimeStampWithOutMillis(value)){return formatConversion.convert.timeStampWithOutMillis(value);}
+        if(formatConversion.checkContentType.isValidJSON(value)){return value;}
+        if(formatConversion.checkContentType.isReadableString(value)){return value;}
+        return false;
     }
 };

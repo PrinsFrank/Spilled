@@ -34,16 +34,21 @@ cookieFilter = {
         },
         check: {
             all: function(tabId, cookie){
-                cookieFilter.cookie.check.valueExtractable(tabId, cookie);
+                if(!cookieFilter.cookie.check.valueMeaningfull(tabId, cookie)){
+                    cookieFilter.cookie.check.valueExtractable(tabId, cookie);
+                }
+            },
+            valueMeaningfull: function(tabId, cookie){
+                if(formatConversion.isMeaningfulData(cookie.value)){
+                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is readable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', cookie.value);
+                    return true;
+                }
+                return false;
             },
             valueExtractable: function(tabId, cookie){
                 value = formatConversion.extractRecursively(cookie.value);
-                if(value !== cookie.value){
-                    Main.addMessage(tabId, 'data-extractable-'+ cookie.name, 'warning', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
-                    return;
-                }
-                if(formatConversion.checkContentType.isReadableString(value)){
-                    Main.addMessage(tabId, 'data-readable-'+ cookie.name, 'warning', 'There is readable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
+                if(value !== cookie.value && formatConversion.isMeaningfulData(value)){
+                    Main.addMessage(tabId, 'data-extractable-'+ cookie.name, 'error', 'There is extractable data present in <b>cookie</b> "<i>' + cookie.name + '</i>"', value);
                 }
             },
         },
