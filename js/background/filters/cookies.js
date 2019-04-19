@@ -32,6 +32,16 @@ cookieFilter = {
                 });
             });
         },
+        parseAll: function(tabId){
+            browser.cookies.getAll({}).then((cookies) => {
+                if(!cookies.length){
+                    return false;
+                }
+                cookies.forEach(function (cookie) {
+                    cookieFilter.cookie.parse(tabId, cookie);
+                });
+            });
+        },
         check: {
             all: function(tabId, cookie){
                 if(!cookieFilter.cookie.check.valueMeaningfull(tabId, cookie)){
@@ -84,6 +94,7 @@ cookieFilter = {
             browser.tabs.get(tabId).then(function(tab){
                 let newHostName = (new URL(tab.url)).hostname;
                 if(newHostName === ''){return;}
+                if(tab.url.startsWith('moz-extension://')){cookieFilter.cookie.parseAll(tabId);return;}
                 if(typeof cookieFilter.checkedCookies[tabId] === 'undefined' || typeof cookieFilter.checkedCookies[tabId][newHostName] === 'undefined') {
                     domainName = cookieFilter.domain.getDomainName(newHostName);
                     cookieFilter.cookie.parseAllForDomain(tabId, domainName);

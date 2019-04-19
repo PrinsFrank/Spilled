@@ -8,12 +8,13 @@
     {
       "matches": ["<all_urls>"],
       "js": [
-        "js/content/main.js"
+        "js/content.js"
       ]
     }
   ],
   "background": {
     "scripts": [
+      "js/background/functions/generateHTML.js",
       "js/background/functions/formatConversion.js",
       "js/background/main.js",
       "js/background/filters/cookies.js"

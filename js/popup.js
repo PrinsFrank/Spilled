@@ -1,10 +1,10 @@
 var browser = browser || chrome;
 
 Popup = {
-    backgroundPageContext: browser.extension.getBackgroundPage().Main,
+    backgroundPageContext: browser.extension.getBackgroundPage(),
     messageContainer: document.getElementById('message-container'),
     init: function(){
-        Popup.getAllMessages().then(function(messages){
+        Popup.getMessagesForCurrentTab().then(function(messages){
             if(Object.getOwnPropertyNames(messages).length === 0){
                 browser.tabs.create({
                     url: browser.runtime.getURL('/overview.html')
@@ -14,27 +14,11 @@ Popup = {
         });
     },
     updateMessageContent: function(messages){
-        messageHtml = '';
-        Object.keys(messages).forEach(function (key) {
-            message = messages[key];
-            messageHtml += '<li id="' + key + '" class="' + message.type + '">' + message.text + '<br><samp>' + message.data + '</samp></li>';
-        });
-
-        Popup.messageContainer.innerHTML = messageHtml;
+        Popup.messageContainer.innerHTML = Popup.backgroundPageContext.generateHTML.list.getFromMessages(messages);
     },
-    getMessagesOfType: function(type){
+    getMessagesForCurrentTab: function(){
         return browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
-            tab = tab[0];
-            return Popup.backgroundPageContext.getMessagesForTab(tab.id, type);
-        });
-    },
-    getAllMessages: function(){
-        return browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
-            let messagesForTab = Popup.backgroundPageContext.getMessagesForTab(tab[0].id);
-            return {
-                ...messagesForTab['error'],
-                ...messagesForTab['warning']
-            };
+            return Popup.backgroundPageContext.Main.getMessagesForTab(tab[0].id);
         });
     },
 };

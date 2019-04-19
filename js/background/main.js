@@ -54,8 +54,13 @@ Main = {
     },
     getMessagesForTab: function(tabId, type = null) {
         if(typeof Main.storage[tabId] === 'undefined') {Main.storage[tabId] = {warning: {}, error: {}};}
-        if(type !== null){return Main.storage[tabId][type];}
-        return Main.storage[tabId];
+        if(type !== null){
+            return Main.storage[tabId][type];
+        }
+        return {
+            ...Main.storage[tabId]['error'],
+            ...Main.storage[tabId]['warning']
+        };
     },
 };
 
