@@ -9,13 +9,17 @@ Main = {
         update: function(tabId) {
             count = Main.notificationCount.getFromMessageCount(tabId);
             browser.browserAction.setBadgeText({
-                text: count.error.toString() > 0 ? count.error.toString() : count.warning.toString(),
+                text: Main.notificationCount.getText(),
                 tabId: tabId
             });
             browser.browserAction.setBadgeBackgroundColor({
                 'color': (count.error > 0)? 'red' : 'orange',
                 tabId: tabId
             });
+        },
+        getText: function() {
+            if(count.error.toString() <= 0){return count.warning.toString();}
+            return count.warning.toString() > 0 ? count.error.toString() + '+' : count.error.toString();
         },
         getFromMessageCount: function(tabId){
             if(typeof Main.storage[tabId] === 'undefined'){return {warning: {}, error: {}};}
