@@ -18,14 +18,15 @@ Main = {
             });
         },
         getText: function(count) {
-            if(count.error.toString() <= 0){return count.warning.toString();}
-            return count.warning.toString() > 0 ? count.error.toString() + '+' : count.error.toString();
+            if(count.error <= 0 && count.warning <= 0){return '';}
+            if(count.error <= 0){return count.warning.toString();}
+            return count.warning > 0 ? count.error.toString() + '+' : count.error.toString();
         },
         getColor: function(count) {
             if(count.error <= 0 && count.warning <= 0){
-                return 'green';
+                return '#20FDC3';
             }
-            return (count.error > 0)? 'red' : 'orange';
+            return (count.error > 0)? '#E03C37' : '#EBE13D';
         },
         getFromMessageCount: function(tabId){
             if(typeof Main.storage[tabId] === 'undefined'){return {warning: 0, error: 0};}

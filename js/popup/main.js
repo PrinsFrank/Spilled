@@ -11,7 +11,7 @@ Popup = {
             messageHtml = '';
             Object.keys(messages).forEach(function (key) {
                 message = messages[key];
-                messageHtml += '<li id="' + key + '" class="' + message.type + '">' + message.text + '<p>' + message.data + '</p></li>';
+                messageHtml += '<li id="' + key + '" class="' + message.type + '">' + message.text + '<br><samp>' + message.data + '</samp></li>';
             });
 
             Popup.messageContainer.innerHTML = messageHtml;

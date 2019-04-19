@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Data leakage detector",
+  "name": "Spilled",
   "version": "1.0",
-  "description": "Identifies too much PII on a page",
+  "description": "Identifies data on pages and in cookies",
   "homepage_url": "https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector",
   "content_scripts": [
     {
@@ -27,7 +27,7 @@
   "browser_action": {
     "browser_style": true,
     "default_popup": "popup/popup.html",
-    "default_title": "Data Leakage Detector",
+    "default_title": "Spilled",
     "default_icon": {
       "16": "icons/favicon-16.png",
       "32": "icons/favicon-32.png"
