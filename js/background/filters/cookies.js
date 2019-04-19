@@ -22,7 +22,6 @@ cookieFilter = {
             if(domain === '' || (cookieFilter.domain.isChecked(tabId, domain) && !reload)){
                 return false;
             }
-            console.log('parseAllForDomain triggered for domain: "' + domain + '" with tabid: ' + tabId);
             browser.cookies.getAll({domain: domain}).then((cookies) => {
                 if(!cookies.length){
                     return false;
@@ -87,7 +86,6 @@ cookieFilter = {
             browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
                 tab = tab[0];
                 cookieFilter.cookie.parse(tab.id, changeInfo.cookie);
-                console.log('cookiechanged triggered for "' + changeInfo.cookie.name + '" with tabid: ' + tab.id);
             });
         },
         tabUpdated: function(tabId, changeInfo, tabinfo) {
