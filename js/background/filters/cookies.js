@@ -2,7 +2,7 @@ cookieFilter = {
     checkedCookies: {},
     init: function(){
         browser.cookies.onChanged.addListener(cookieFilter.listeners.cookieChanged);
-        browser.tabs.onUpdated.addListener(cookieFilter.listeners.urlChanged);
+        browser.tabs.onUpdated.addListener(cookieFilter.listeners.tabUpdated);
     },
     cookie: {
         parse: function(tabId, cookie){
@@ -80,7 +80,7 @@ cookieFilter = {
                 console.log('cookiechanged triggered for "' + changeInfo.cookie.name + '" with tabid: ' + tab.id);
             });
         },
-        urlChanged: function(tabId, changeInfo, tabinfo) {
+        tabUpdated: function(tabId, changeInfo, tabinfo) {
             browser.tabs.get(tabId).then(function(tab){
                 let newHostName = (new URL(tab.url)).hostname;
                 if(newHostName === ''){return;}
@@ -89,6 +89,7 @@ cookieFilter = {
                     cookieFilter.cookie.parseAllForDomain(tabId, domainName);
                 }
             });
+            Main.notificationCount.update(tabId);
         }
     }
 };
