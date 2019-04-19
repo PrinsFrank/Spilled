@@ -7,7 +7,7 @@ Popup = {
         Popup.updateMessageContent();
     },
     updateMessageContent: function(){
-        Popup.getMessages().then(function(messages){
+        Popup.getAllMessages().then(function(messages){
             messageHtml = '';
             Object.keys(messages).forEach(function (key) {
                 message = messages[key];
@@ -17,10 +17,19 @@ Popup = {
             Popup.elem.innerHTML = messageHtml;
         });
     },
-    getMessages: function(){
+    getMessagesOfType: function(type){
         return browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
             tab = tab[0];
-            return Popup.backgroundPageContext.messages[tab.id];
+            return Popup.backgroundPageContext.storage[tab.id][type];
+        });
+    },
+    getAllMessages: function(){
+        return browser.tabs.query({currentWindow: true, active: true}).then(function(tab){
+            let messagesForTab = Popup.backgroundPageContext.storage[tab[0].id];
+            return {
+                ...messagesForTab['error'],
+                ...messagesForTab['warning']
+            };
         });
     },
 };
