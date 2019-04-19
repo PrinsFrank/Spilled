@@ -5,8 +5,10 @@ Popup = {
     messageContainer: document.getElementById('message-container'),
     init: function(){
         Popup.getAllMessages().then(function(messages){
-            if(Object.getOwnPropertyNames(messages).length){
-                //
+            if(Object.getOwnPropertyNames(messages).length === 0){
+                browser.tabs.create({
+                    url: browser.runtime.getURL('/overview.html')
+                });return;
             }
             Popup.updateMessageContent(messages);
         });
