@@ -12,7 +12,7 @@ Popup = {
         let messages = Popup.backgroundPageContext.Main.getMessagesForTab(tabId);
         if(Object.getOwnPropertyNames(messages).length === 0){
             browser.tabs.create({
-                url: browser.runtime.getURL('/overview.html')
+                url: browser.runtime.getURL('html/overview.html')
             });return;
         }
         Popup.updateMessageContent(messages);

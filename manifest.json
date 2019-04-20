@@ -27,7 +27,7 @@
   ],
   "browser_action": {
     "browser_style": true,
-    "default_popup": "popup.html",
+    "default_popup": "html/popup.html",
     "default_title": "Spilled",
     "default_icon": {
       "16": "icons/favicon-16.png",
