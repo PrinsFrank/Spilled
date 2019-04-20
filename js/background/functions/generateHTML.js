@@ -1,4 +1,7 @@
 var generateHTML = {
+  init () {
+    //
+  },
   list: {
     getFromMessages: function (messages) {
       let messageHtml = ''
@@ -10,3 +13,5 @@ var generateHTML = {
     }
   }
 }
+
+generateHTML.init()

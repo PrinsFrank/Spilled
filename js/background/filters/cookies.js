@@ -1,3 +1,6 @@
+/* global Main */
+/* global formatConversion */
+
 var cookieFilter = {
   checkedCookies: {},
   init: function () {
@@ -94,7 +97,7 @@ var cookieFilter = {
         if (newHostName === '') { return }
         if (tab.url.startsWith('moz-extension://') || tab.url.startsWith('chrome-extension://')) { cookieFilter.cookie.parseAll(tabId); return }
         if (typeof cookieFilter.checkedCookies[tabId] === 'undefined' || typeof cookieFilter.checkedCookies[tabId][newHostName] === 'undefined') {
-          domainName = cookieFilter.domain.getDomainName(newHostName)
+          let domainName = cookieFilter.domain.getDomainName(newHostName)
           cookieFilter.cookie.parseAllForDomain(tabId, domainName)
         }
       })

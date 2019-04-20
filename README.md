@@ -19,7 +19,7 @@ To initialize npm, run:
 ```
 npm install
 ```
-To following commands are available:
+To following commands are available (in PHPstorm avaible with alt+f11):
 ```
 npm run lint
 npm run fix
