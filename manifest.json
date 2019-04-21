@@ -4,21 +4,8 @@
   "version": "1.0",
   "description": "Identifies data on pages and in cookies",
   "homepage_url": "https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector",
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": [
-        "js/content.js"
-      ]
-    }
-  ],
   "background": {
-    "scripts": [
-      "js/background/functions/generateHTML.js",
-      "js/background/functions/formatConversion.js",
-      "js/background/main.js",
-      "js/background/filters/cookies.js"
-    ]
+    "page": "html/background.html"
   },
   "permissions": [
     "tabs",

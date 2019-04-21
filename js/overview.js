@@ -1,15 +1,14 @@
-var Overview = {
-  backgroundPageContext: browser.extension.getBackgroundPage(),
-  messageContainer: document.getElementById('message-container'),
-  init: function () {
-    browser.tabs.query({ currentWindow: true, active: true }, function (tab) {
-      tab = tab[0]
-      Overview.updateMessageContent(Overview.backgroundPageContext.Main.getMessagesForTab(tab.id))
-    })
-  },
-  updateMessageContent: function (messages) {
-    Overview.messageContainer.innerHTML = Overview.backgroundPageContext.generateHTML.list.getFromMessages(messages)
-  }
+import parseCookiesForTab from "./background/Modules/filters/cookie.js";
+import { getHTMLListFromMessages } from "./background/Modules/generateHTML.js";
+
+const messageContainer = document.getElementById("message-container");
+
+function updateMessageContent(tabId, messages) {
+  messageContainer.innerHTML =
+    getHTMLListFromMessages(messages.error) +
+    getHTMLListFromMessages(messages.warning);
 }
 
-Overview.init()
+browser.tabs.query({ currentWindow: true, active: true }, tab => {
+  parseCookiesForTab(tab[0], updateMessageContent);
+});
