@@ -1,8 +1,8 @@
 export function extractRecursively(value, depth = 0) {
+  // Check if our totem is spinning
   if (depth >= 10) {
     return value;
   }
-  depth++; // Check if our totem is spinning
   let extractedValue = value; // Make a copy so we can test if this value is changed later
 
   // The data in these types are resolved so we can return them formatted
@@ -19,6 +19,7 @@ export function extractRecursively(value, depth = 0) {
   if (extractedValue === value) {
     return extractedValue;
   }
+  depth++;
   return extractRecursively(extractedValue, depth);
 }
 
