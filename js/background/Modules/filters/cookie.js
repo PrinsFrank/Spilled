@@ -1,5 +1,7 @@
 import { extractRecursively, isMeaningfulData } from "../formatConversion.js";
 
+var API = chrome || browser;
+
 export default function parseCookiesForTab(tab, callback) {
   if (isOverviewTab(tab)) {
     parseAllCookies(callback, tab);
@@ -12,13 +14,13 @@ export default function parseCookiesForTab(tab, callback) {
 }
 
 function parseAllCookies(callback, tab) {
-  browser.cookies.getAll({}, cookies => {
+  API.cookies.getAll({}, cookies => {
     callback(tab.id, parseCookies(cookies));
   });
 }
 
 function parseCookiesForDomain(domain, callback, tab) {
-  browser.cookies.getAll({ domain }, cookies => {
+  API.cookies.getAll({ domain }, cookies => {
     callback(tab.id, parseCookies(cookies));
   });
 }

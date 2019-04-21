@@ -1,10 +1,12 @@
+var API = chrome || browser;
+
 export default function updateBadgeForTabAndMessages(tabId, messages) {
   const count = getCountFromMessages(messages);
-  browser.browserAction.setBadgeText({
+  API.browserAction.setBadgeText({
     text: getText(count),
     tabId
   });
-  browser.browserAction.setBadgeBackgroundColor({
+  API.browserAction.setBadgeBackgroundColor({
     color: getColor(count),
     tabId
   });
