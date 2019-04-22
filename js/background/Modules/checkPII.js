@@ -45,8 +45,8 @@ export default function PIIpresent(name, value) {
       }
       showConsoleInfoIfNotFound(key, value);
     });
-  }else{
-      showConsoleInfoIfNotFound(name, value);
+  } else {
+    showConsoleInfoIfNotFound(name, value);
   }
 
   return presentPII;
@@ -61,9 +61,9 @@ function isLinkablePII(str) {
 }
 
 // @TODO: Remove temp debugging function
-function showConsoleInfoIfNotFound(name, value){
-  if(!isLinkedPII(name) && !isLinkablePII(name)){
-    console.log(name + ' is not in fingerprint file %c' + value, 'color: red;');
+function showConsoleInfoIfNotFound(name, value) {
+  if (!isLinkedPII(name) && !isLinkablePII(name)) {
+    console.log(name + " is not in fingerprint file %c" + value, "color: red;");
   }
 }
 

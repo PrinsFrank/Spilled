@@ -23,8 +23,8 @@ export default {
       "driverslicense",
       "creditcard",
       "creditcardnumber",
-    "geo",
-    "geodata"
+      "geo",
+      "geodata"
     ],
     linkable: [
       "age",
