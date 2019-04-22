@@ -1,4 +1,5 @@
 import { extractRecursively, isMeaningfulData } from "../formatConversion.js";
+import PIIpresent from "../checkPII.js";
 
 var API = chrome || browser;
 
@@ -57,6 +58,22 @@ function parseCookie(cookie) {
     parsedCookieInfo.value = isMeaningfulData(extractedValue);
     parsedCookieInfo.warnings.data_extractable =
       "There is extractable data present";
+  }
+
+  if (PIIpresent(cookie.name, extractedValue)) {
+    let presentPII = PIIpresent(cookie.name, extractedValue);
+    Object.keys(presentPII).forEach(name => {
+      let data = presentPII[name];
+      parsedCookieInfo.warnings["pii_present_" + name] =
+        data.type +
+        " PII found in " +
+        data.context +
+        ' with key "' +
+        name +
+        '" : <b>' +
+        data.value +
+        "</b>";
+    });
   }
 
   return parsedCookieInfo;

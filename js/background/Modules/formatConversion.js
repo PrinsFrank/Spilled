@@ -42,6 +42,15 @@ export function isMeaningfulData(value) {
   return false;
 }
 
+export function isValidJSON(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
 function isValidBool(str) {
   return str === "1" || str === "0" || str === "true" || str === "false";
 }
@@ -55,15 +64,6 @@ function isValidBase64(str) {
   } catch (err) {
     return false;
   }
-}
-
-function isValidJSON(str) {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
 }
 
 function isValidTimeStamp(str) {

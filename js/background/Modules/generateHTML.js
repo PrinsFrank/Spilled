@@ -8,7 +8,7 @@ export function getHTMLListFromMessages(domains) {
       messageHtml += "<h3>Cookie: " + cookieName + "</h3>";
       let cookie = cookiesForDomain[cookieName];
       let warnings = cookie.warnings;
-      if (warnings.length === 0) {
+      if (Object.keys(warnings).length <= 0) {
         return;
       }
 
@@ -18,10 +18,10 @@ export function getHTMLListFromMessages(domains) {
           warningKey +
           '">' +
           warnings[warningKey] +
-          "<br><samp>" +
-          cookie.value +
-          "</samp></li>";
+          "</li>";
       });
+
+      messageHtml += "<br><samp>" + cookie.value + "</samp>";
     });
   });
   return messageHtml;
