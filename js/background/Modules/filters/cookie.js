@@ -26,47 +26,40 @@ function parseCookiesForDomain(domain, callback, tab) {
 }
 
 function parseCookies(cookies) {
-  const collectedMessages = { warning: {}, error: {} };
+  const collectedMessages = {};
   if (!cookies.length) {
     return collectedMessages;
   }
   cookies.forEach(cookie => {
-    const messageForCookie = parseCookie(cookie);
-    if (messageForCookie !== false) {
-      collectedMessages[messageForCookie.type][
-        messageForCookie.key
-      ] = messageForCookie;
+    if (typeof collectedMessages[cookie.domain] === "undefined") {
+      collectedMessages[cookie.domain] = {};
     }
+    collectedMessages[cookie.domain][cookie.name] = parseCookie(cookie);
   });
   return collectedMessages;
 }
 
 function parseCookie(cookie) {
+  let extractedValue = extractRecursively(cookie.value);
+  let parsedCookieInfo = {
+    warnings: {},
+    value: cookie.value
+  };
+
   if (isMeaningfulData(cookie.value) !== false) {
-    return {
-      key: `data-readable-${cookie.name}`,
-      type: "warning",
-      text: `There is readable data present in <b>cookie</b> "<i>${
-        cookie.name
-      }</i>" set for domain: "<i>${cookie.domain}</i>"`,
-      data: isMeaningfulData(cookie.value)
-    };
+    parsedCookieInfo.value = isMeaningfulData(cookie.value);
+    parsedCookieInfo.warnings.data_readable = "There is readable data present";
   }
-  const extractedValue = extractRecursively(cookie.value);
   if (
-    extractedValue !== cookie.value &&
+    extractedValue !== isMeaningfulData(cookie.value) &&
     isMeaningfulData(extractedValue) !== false
   ) {
-    return {
-      key: `data-extractable-${cookie.name}`,
-      type: "error",
-      text: `There is extractable data present in <b>cookie</b> "<i>${
-        cookie.name
-      }</i>" set for domain: "<i>${cookie.domain}</i>"`,
-      data: isMeaningfulData(extractedValue)
-    };
+    parsedCookieInfo.value = isMeaningfulData(extractedValue);
+    parsedCookieInfo.warnings.data_extractable =
+      "There is extractable data present";
   }
-  return false;
+
+  return parsedCookieInfo;
 }
 
 function isOverviewTab(tab) {

@@ -13,27 +13,29 @@ export default function updateBadgeForTabAndMessages(tabId, messages) {
 }
 
 function getText(count) {
-  if (count.error <= 0 && count.warning <= 0) {
-    return "";
-  }
-  if (count.error <= 0) {
-    return count.warning.toString();
-  }
-  return count.warning > 0
-    ? `${count.error.toString()}+`
-    : count.error.toString();
+  return count.toString();
 }
 
 function getColor(count) {
-  if (count.error <= 0 && count.warning <= 0) {
+  if (count <= 0) {
     return "#20FDC3";
   }
-  return count.error > 0 ? "#E03C37" : "#EBE13D";
+
+  if (count <= 5) {
+    return "#EBE13D";
+  }
+
+  return "#E03C37";
 }
 
-function getCountFromMessages(messages) {
-  return {
-    warning: Object.keys(messages.warning).length,
-    error: Object.keys(messages.error).length
-  };
+function getCountFromMessages(domains) {
+  let count = 0;
+  Object.keys(domains).forEach(domain => {
+    let cookiesForDomain = domains[domain];
+    Object.keys(cookiesForDomain).forEach(cookieName => {
+      let warnings = cookiesForDomain[cookieName].warnings;
+      count += Object.keys(warnings).length;
+    });
+  });
+  return count;
 }

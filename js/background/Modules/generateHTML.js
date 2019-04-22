@@ -1,10 +1,28 @@
-export function getHTMLListFromMessages(messages) {
+export function getHTMLListFromMessages(domains) {
   let messageHtml = "";
-  Object.keys(messages).forEach(key => {
-    const message = messages[key];
-    messageHtml += `<li id="${key}" class="${message.type}">${
-      message.text
-    }<br><samp>${message.data}</samp></li>`;
+  Object.keys(domains).forEach(domain => {
+    messageHtml += "<h2>Cookies for domain: " + domain + "</h2>";
+
+    let cookiesForDomain = domains[domain];
+    Object.keys(cookiesForDomain).forEach(cookieName => {
+      messageHtml += "<h3>Cookie: " + cookieName + "</h3>";
+      let cookie = cookiesForDomain[cookieName];
+      let warnings = cookie.warnings;
+      if (warnings.length === 0) {
+        return;
+      }
+
+      Object.keys(warnings).forEach(warningKey => {
+        messageHtml +=
+          '<li class="warning ' +
+          warningKey +
+          '">' +
+          warnings[warningKey] +
+          "<br><samp>" +
+          cookie.value +
+          "</samp></li>";
+      });
+    });
   });
   return messageHtml;
 }

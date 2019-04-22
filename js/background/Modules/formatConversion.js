@@ -68,15 +68,19 @@ function isValidJSON(str) {
 
 function isValidTimeStamp(str) {
   let dateFromString = new Date(str);
-  if(isNaN(dateFromString.getTime())){
+  if (isNaN(dateFromString.getTime())) {
     dateFromString = new Date(parseInt(str));
-    if(isNaN(dateFromString.getTime())){
+    if (isNaN(dateFromString.getTime())) {
       return false;
     }
   }
-  let tenYearsAgo = new Date(new Date().setFullYear(new Date().getFullYear() - 10));
-  let inTenYears = new Date(new Date().setFullYear(new Date().getFullYear() + 10));
-  return (dateFromString >= tenYearsAgo && dateFromString <= inTenYears);
+  let tenYearsAgo = new Date(
+    new Date().setFullYear(new Date().getFullYear() - 10)
+  );
+  let inTenYears = new Date(
+    new Date().setFullYear(new Date().getFullYear() + 10)
+  );
+  return dateFromString >= tenYearsAgo && dateFromString <= inTenYears;
 }
 
 function isValidTimeStampWithOutMillis(str) {
@@ -92,7 +96,7 @@ function base64ToString(base64) {
 
 function timeStampToString(str) {
   let dateFromString = new Date(str);
-  if(isNaN(dateFromString.getTime())){
+  if (isNaN(dateFromString.getTime())) {
     dateFromString = new Date(parseInt(str));
   }
   return dateFromString.toString();

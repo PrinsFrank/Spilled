@@ -6,9 +6,7 @@ var API = chrome || browser;
 const messageContainer = document.getElementById("message-container");
 
 function updateMessageContent(tabId, messages) {
-  messageContainer.innerHTML =
-    getHTMLListFromMessages(messages.error) +
-    getHTMLListFromMessages(messages.warning);
+  messageContainer.innerHTML = getHTMLListFromMessages(messages);
 }
 
 API.tabs.query({ currentWindow: true, active: true }, tab => {
