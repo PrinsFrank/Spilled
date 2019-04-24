@@ -5,22 +5,22 @@ var API = chrome || browser;
 
 export default function parseCookiesForTab(tab, callback) {
   if (isOverviewTab(tab)) {
-    parseAllCookies(callback, tab);
+    parseAllCookies(tab, callback);
   }
   const domain = getCleanDomainFromTab(tab);
   if (!domainShouldBeChecked(domain)) {
     return false;
   }
-  parseCookiesForDomain(domain, callback, tab);
+  parseCookiesForDomain(domain, tab, callback);
 }
 
-function parseAllCookies(callback, tab) {
+function parseAllCookies(tab, callback) {
   API.cookies.getAll({}, cookies => {
     callback(tab.id, parseCookies(cookies));
   });
 }
 
-function parseCookiesForDomain(domain, callback, tab) {
+function parseCookiesForDomain(domain, tab, callback) {
   API.cookies.getAll({ domain }, cookies => {
     callback(tab.id, parseCookies(cookies));
   });
