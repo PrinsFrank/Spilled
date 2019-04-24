@@ -26,6 +26,9 @@ export default function PIIpresent(name, value) {
 
   if (isValidJSON(value)) {
     let parsedJSON = JSON.parse(value);
+    if(parsedJSON === null){
+      return;
+    }
     Object.keys(parsedJSON).forEach(key => {
       let normalizedName = normalizeString(key);
       let value = parsedJSON[key];
