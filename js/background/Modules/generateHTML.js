@@ -1,7 +1,7 @@
 export function getHTMLListFromMessages(domains) {
   let messageHtml = "";
   Object.keys(domains).forEach(domain => {
-    let messageForDomain = '';
+    let messageForDomain = "";
     let cookiesForDomain = domains[domain];
     Object.keys(cookiesForDomain).forEach(cookieName => {
       let cookie = cookiesForDomain[cookieName];
@@ -20,7 +20,7 @@ export function getHTMLListFromMessages(domains) {
       });
       messageForDomain += "<br><samp>" + cookie.value + "</samp>";
     });
-    if(messageForDomain !== ''){
+    if (messageForDomain !== "") {
       messageHtml += "<h2>Cookies for domain: " + domain + "</h2>";
       messageHtml += messageForDomain;
     }
