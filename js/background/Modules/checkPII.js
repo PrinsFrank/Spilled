@@ -67,6 +67,6 @@ function isLinkablePII(str) {
 // @TODO: Remove temp debugging function
 function showConsoleInfoIfNotFound(name, value) {
   if (!isLinkedPII(name) && !isLinkablePII(name)) {
-    console.log(name + " is not in fingerprint file %c" + value, "color: red;");
+    // console.log(name + " is not in fingerprint file %c" + value, "color: red;");
   }
 }

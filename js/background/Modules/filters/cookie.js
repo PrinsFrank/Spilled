@@ -9,7 +9,7 @@ export default function parseCookiesForTab(tab, callback) {
   }
   const domain = getCleanDomainFromTab(tab);
   if (!domainShouldBeChecked(domain)) {
-    return false;
+    callback(tab.id, false);
   }
   parseCookiesForDomain(domain, tab, callback);
 }
