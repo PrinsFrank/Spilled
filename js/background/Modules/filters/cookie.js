@@ -6,10 +6,12 @@ var API = chrome || browser;
 export default function parseCookiesForTab(tab, callback) {
   if (isOverviewTab(tab)) {
     parseAllCookies(tab, callback);
+    return;
   }
   const domain = getCleanDomainFromTab(tab);
   if (!domainShouldBeChecked(domain)) {
     callback(tab.id, false);
+    return;
   }
   parseCookiesForDomain(domain, tab, callback);
 }
