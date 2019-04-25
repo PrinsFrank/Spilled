@@ -24,3 +24,17 @@ To following commands are available (in PHPstorm avaible with alt+f11):
 npm run lint
 npm run fix
 ```
+
+# Install temporary Extension
+
+## Firefox
+- Go to [about:debugging](about:debugging).
+- Click on "Load temporary Add-on...".
+- Navigate to the local folder where this repo is present and select the manifest.json file.
+
+## Chrome
+- Go to [chrome://extensions/](chrome://extensions/).
+- Enable "Developer mode" in the thop right hand corner.
+- Click on "Load extracted extension".
+- Navigate to the directory __above__ where this repo is present.
+- Click on the folder, and subsequently click on "Select folder".
