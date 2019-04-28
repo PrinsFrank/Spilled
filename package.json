@@ -30,14 +30,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector.git"
+    "url": "git+https://github.com/PrinsFrank/Spilled.git"
   },
   "author": "Frank Prins",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector/issues"
+    "url": "https://github.com/PrinsFrank/Spilled/issues"
   },
-  "homepage": "https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector#readme",
+  "homepage": "https://github.com/PrinsFrank/Spilled#readme",
   "ava": {
     "require": [
       "esm"
