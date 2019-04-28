@@ -1,4 +1,4 @@
-export default function takeFingerPrint(key, value) {
+export default function takeFingerPrint(key) {
   return normalizeString(key);
 }
 
