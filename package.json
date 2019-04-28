@@ -9,12 +9,19 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
     "esm": "^3.2.22",
+    "nyc": "^14.0.0",
     "prettier": "^1.17.0"
   },
   "scripts": {
     "lint": "eslint **/*.js",
     "fix": "eslint **/*.js --fix",
-    "test": "ava"
+    "test": "nyc ava"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "js/**/*.js"
+    ]
   },
   "repository": {
     "type": "git",
