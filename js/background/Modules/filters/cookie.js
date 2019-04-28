@@ -1,34 +1,7 @@
 import { extractRecursively, getMeaningfulData } from "../formatConversion.js";
-import PIIpresent from "../checkPII.js";
+import { PIIpresent } from "../checkPII.js";
 
-var API = chrome || browser;
-
-export default function parseCookiesForTab(tab, callback) {
-  if (isOverviewTab(tab)) {
-    parseAllCookies(tab, callback);
-    return;
-  }
-  const domain = getCleanDomainFromTab(tab);
-  if (!domainShouldBeChecked(domain)) {
-    callback(tab.id, false);
-    return;
-  }
-  parseCookiesForDomain(domain, tab, callback);
-}
-
-function parseAllCookies(tab, callback) {
-  API.cookies.getAll({}, cookies => {
-    callback(tab.id, parseCookies(cookies));
-  });
-}
-
-function parseCookiesForDomain(domain, tab, callback) {
-  API.cookies.getAll({ domain }, cookies => {
-    callback(tab.id, parseCookies(cookies));
-  });
-}
-
-function parseCookies(cookies) {
+export function parseCookies(cookies) {
   const collectedMessages = {};
   if (!cookies.length) {
     return collectedMessages;
@@ -42,7 +15,7 @@ function parseCookies(cookies) {
   return collectedMessages;
 }
 
-function parseCookie(cookie) {
+export function parseCookie(cookie) {
   let extractedValue = extractRecursively(cookie.value);
   let parsedCookieInfo = {
     warnings: {},
@@ -54,15 +27,19 @@ function parseCookie(cookie) {
     parsedCookieInfo.value = meaningfulData;
     parsedCookieInfo.warnings.data_readable = "There is readable data present";
   }
-  meaningfulData = getMeaningfulData(extractedValue);
-  if (extractedValue !== meaningfulData && meaningfulData !== false) {
-    parsedCookieInfo.value = meaningfulData;
+
+  let meaningfulExtractedData = getMeaningfulData(extractedValue);
+  if (
+    meaningfulExtractedData !== meaningfulData &&
+    meaningfulExtractedData !== false
+  ) {
+    parsedCookieInfo.value = meaningfulExtractedData;
     parsedCookieInfo.warnings.data_extractable =
       "There is extractable data present";
   }
 
   let presentPII = PIIpresent(cookie.name, extractedValue);
-  if (presentPII !== false && typeof presentPII !== "undefined") {
+  if (typeof presentPII !== "undefined" && Object.keys(presentPII).length) {
     Object.keys(presentPII).forEach(name => {
       let data = presentPII[name];
       parsedCookieInfo.warnings["pii_present_" + name] =
@@ -80,18 +57,18 @@ function parseCookie(cookie) {
   return parsedCookieInfo;
 }
 
-function isOverviewTab(tab) {
+export function isOverviewTab(tab) {
   return (
     tab.url.startsWith("moz-extension://") ||
     tab.url.startsWith("chrome-extension://")
   );
 }
 
-function domainShouldBeChecked(domain) {
+export function domainShouldBeChecked(domain) {
   return domain !== "";
 }
 
-function getCleanDomainFromTab(tab) {
+export function getCleanDomainFromTab(tab) {
   return getCleanDomain(new URL(tab.url).hostname);
 }
 

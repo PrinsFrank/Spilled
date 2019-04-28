@@ -5,7 +5,7 @@ import { isValidJSON } from "./formatConversion.js";
 let linkedPIIFingerPrints = PIIfingerprints.linked;
 let linkablePIIFingerPrints = PIIfingerprints.linkable;
 
-export default function PIIpresent(name, value) {
+export function PIIpresent(name, value) {
   let normalizedName = takeFingerPrint(name);
   let presentPII = {};
 
@@ -28,7 +28,7 @@ export default function PIIpresent(name, value) {
   if (isValidJSON(value)) {
     let parsedJSON = JSON.parse(value);
     if (parsedJSON === null) {
-      return;
+      return {};
     }
     Object.keys(parsedJSON).forEach(key => {
       let normalizedName = takeFingerPrint(key);
@@ -47,10 +47,7 @@ export default function PIIpresent(name, value) {
           value: value
         };
       }
-      showConsoleInfoIfNotFound(key, value);
     });
-  } else {
-    showConsoleInfoIfNotFound(name, value);
   }
 
   return presentPII;
@@ -74,17 +71,10 @@ function isLinkablePII(str) {
   return verifyValueFingerPrint(str, valueFingerPrint);
 }
 
-function verifyValueFingerPrint(str, valueFingerPrint) {
+export function verifyValueFingerPrint(str, valueFingerPrint) {
   switch (valueFingerPrint) {
     case "string":
       return true; // todo
   }
   return false;
-}
-
-// @TODO: Remove temp debugging function
-function showConsoleInfoIfNotFound(name, value) {
-  if (!isLinkedPII(name) && !isLinkablePII(name)) {
-    // console.log(name + " is not in fingerprint file %c" + value, "color: red;");
-  }
 }

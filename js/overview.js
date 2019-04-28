@@ -1,4 +1,4 @@
-import parseCookiesForTab from "./background/Modules/filters/cookie.js";
+import parseCookiesForTab from "./background/BrowserAPI/cookies.js";
 import { getHTMLListFromMessages } from "./background/Modules/generateHTML.js";
 
 var API = chrome || browser;

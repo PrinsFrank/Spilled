@@ -1,5 +1,5 @@
-import updateBadgeForTabAndMessages from "./Modules/badge.js";
-import parseCookiesForTab from "./Modules/filters/cookie.js";
+import updateBadgeForTabAndMessages from "./BrowserAPI/badge.js";
+import parseCookiesForTab from "./BrowserAPI/cookies.js";
 
 var API = chrome || browser;
 

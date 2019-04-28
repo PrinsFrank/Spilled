@@ -45,8 +45,11 @@ test("Get meaningful data from JSON", t => {
   t.is(false, getMeaningfulData("{json:false}"));
 });
 
-test("Get meaningful data if readable string", t => {
+test("Return no data when data is not meaningful", t => {
   t.is(false, getMeaningfulData(";sdfj]gaang]"));
+});
+
+test("Get meaningful data if readable string", t => {
   t.is(
     "This is a readable string",
     getMeaningfulData("This is a readable string")
@@ -59,4 +62,27 @@ test("Extract data from base64 encoded string", t => {
     extractRecursively("VGhpcyBpcyBhIHJlYWRhYmxlIHN0cmluZw==")
   );
   t.is('{"json":"true"}', extractRecursively("eyJqc29uIjoidHJ1ZSJ9"));
+});
+
+test("Return original value if we can't make anything out of it", t => {
+  t.is("in&*32(D)F)#@Q$", extractRecursively("in&*32(D)F)#@Q$"));
+});
+
+test("Doesn't base64 decode more than 3 times", t => {
+  t.is(
+    "This is a readable string",
+    extractRecursively(
+      "Vmtkb2NHTjVRbkJqZVVKb1NVaEtiRmxYVW1oWmJYaHNTVWhPTUdOdGJIVmFkejA5"
+    )
+  );
+  t.is(
+    "VGhpcyBpcyBhIHJlYWRhYmxlIHN0cmluZw==",
+    extractRecursively(
+      "Vm10a2IyTkhUalZSYmtKcVpWVktiMU5WYUV0aVJteFlWVzFvV21KWWFITlRWV2hQVFVkT2RHSklWbUZrZWpBNQ=="
+    )
+  );
+});
+
+test("Check return value of empty string", t => {
+  t.is("", extractRecursively(""));
 });

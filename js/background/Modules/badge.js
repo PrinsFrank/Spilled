@@ -1,22 +1,8 @@
-var API = chrome || browser;
-
-export default function updateBadgeForTabAndMessages(tabId, messages) {
-  const count = getCountFromMessages(messages);
-  API.browserAction.setBadgeText({
-    text: getText(count),
-    tabId
-  });
-  API.browserAction.setBadgeBackgroundColor({
-    color: getColor(count),
-    tabId
-  });
-}
-
-function getText(count) {
+export function getText(count) {
   return count.toString();
 }
 
-function getColor(count) {
+export function getColor(count) {
   if (count <= 0) {
     return "#20FDC3";
   }
@@ -28,7 +14,7 @@ function getColor(count) {
   return "#E03C37";
 }
 
-function getCountFromMessages(domains) {
+export function getCountFromMessages(domains) {
   let count = 0;
   Object.keys(domains).forEach(domain => {
     let cookiesForDomain = domains[domain];

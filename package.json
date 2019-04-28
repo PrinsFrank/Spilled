@@ -25,7 +25,7 @@
     "exclude": [
       "js/overview.js",
       "js/background/main.js",
-      "js/background/Modules/fingerprints/*.js"
+      "js/background/BrowserAPI/"
     ]
   },
   "repository": {

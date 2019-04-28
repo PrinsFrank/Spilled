@@ -1,16 +1,8 @@
-import { btoaPoly, atobPoly } from "./poly/base64.js";
-
-if (!global.btoa) {
-  global.btoa = btoaPoly;
-}
-
-if (!global.atob) {
-  global.atob = atobPoly;
-}
+import { btoaPoly as btoa, atobPoly as atob } from "./poly/base64.js";
 
 export function extractRecursively(value, depth = 0) {
   // Check if our totem is spinning
-  if (depth >= 10) {
+  if (depth >= 3) {
     return value;
   }
   let extractedValue = value; // Make a copy so we can test if this value is changed later
