@@ -23,6 +23,7 @@ To following commands are available (in PHPstorm avaible with alt+f11):
 ```
 npm run lint
 npm run fix
+npm run test
 ```
 
 # Install temporary Extension
