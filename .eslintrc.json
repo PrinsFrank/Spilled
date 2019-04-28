@@ -9,7 +9,8 @@
         "plugin:prettier/recommended"
     ],
     "globals": {
-        "browser": true
+        "browser": true,
+        "global": true
     },
     "parserOptions": {
         "ecmaVersion": 2018,
