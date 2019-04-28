@@ -1,3 +1,13 @@
+import { btoaPoly, atobPoly } from "./poly/base64.js";
+
+if (!global.btoa) {
+  global.btoa = btoaPoly;
+}
+
+if (!global.atob) {
+  global.atob = atobPoly;
+}
+
 export function extractRecursively(value, depth = 0) {
   // Check if our totem is spinning
   if (depth >= 10) {
@@ -6,8 +16,9 @@ export function extractRecursively(value, depth = 0) {
   let extractedValue = value; // Make a copy so we can test if this value is changed later
 
   // The data in these types are resolved so we can return them formatted
-  if (isMeaningfulData(value)) {
-    return isMeaningfulData(value);
+  let meaningFulData = getMeaningfulData(value);
+  if (meaningFulData !== false) {
+    return meaningFulData;
   }
 
   // Convert the data
@@ -23,7 +34,7 @@ export function extractRecursively(value, depth = 0) {
   return extractRecursively(extractedValue, depth);
 }
 
-export function isMeaningfulData(value) {
+export function getMeaningfulData(value) {
   if (isValidBool(value)) {
     return booleanToString(value);
   }
@@ -88,7 +99,7 @@ function isValidTimeStampWithOutMillis(str) {
 }
 
 function isReadableString(str) {
-  return /^[A-z0-9]$/.test(str);
+  return /^[A-z0-9\s]+$/.test(str) && !isValidBase64(str);
 }
 function base64ToString(base64) {
   return atob(base64);
@@ -107,5 +118,5 @@ function timeStampWithOutMillisToString(str) {
 }
 
 function booleanToString(value) {
-  return value === "1" || value === "true" ? "true" : false;
+  return value === "1" || value === "true" ? "true" : "false";
 }
