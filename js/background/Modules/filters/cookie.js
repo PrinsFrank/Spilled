@@ -49,21 +49,20 @@ function parseCookie(cookie) {
     value: cookie.value
   };
 
-  if (isMeaningfulData(cookie.value) !== false) {
-    parsedCookieInfo.value = isMeaningfulData(cookie.value);
+  let meaningfulData = isMeaningfulData(cookie.value);
+  if (meaningfulData !== false) {
+    parsedCookieInfo.value = meaningfulData;
     parsedCookieInfo.warnings.data_readable = "There is readable data present";
   }
-  if (
-    extractedValue !== isMeaningfulData(cookie.value) &&
-    isMeaningfulData(extractedValue) !== false
-  ) {
-    parsedCookieInfo.value = isMeaningfulData(extractedValue);
+  meaningfulData = isMeaningfulData(extractedValue);
+  if (extractedValue !== meaningfulData && meaningfulData !== false) {
+    parsedCookieInfo.value = meaningfulData;
     parsedCookieInfo.warnings.data_extractable =
       "There is extractable data present";
   }
 
-  if (PIIpresent(cookie.name, extractedValue)) {
-    let presentPII = PIIpresent(cookie.name, extractedValue);
+  let presentPII = PIIpresent(cookie.name, extractedValue);
+  if (presentPII !== false && typeof presentPII !== "undefined") {
     Object.keys(presentPII).forEach(name => {
       let data = presentPII[name];
       parsedCookieInfo.warnings["pii_present_" + name] =
