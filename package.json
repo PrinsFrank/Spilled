@@ -15,12 +15,17 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "fix": "eslint **/*.js --fix",
-    "test": "nyc ava"
+    "test": "nyc --reporter=html --reporter=text ava"
   },
   "nyc": {
     "all": true,
     "include": [
       "js/**/*.js"
+    ],
+    "exclude": [
+      "js/overview.js",
+      "js/background/main.js",
+      "js/background/Modules/fingerprints/*.js"
     ]
   },
   "repository": {
