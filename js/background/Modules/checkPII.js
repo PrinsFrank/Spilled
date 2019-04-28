@@ -57,11 +57,29 @@ export default function PIIpresent(name, value) {
 }
 
 function isLinkedPII(str) {
-  return linkedPIIFingerPrints.indexOf(takeFingerPrint(str)) > -1;
+  let keyFingerPrint = takeFingerPrint(str);
+  if (!linkedPIIFingerPrints.hasOwnProperty(keyFingerPrint)) {
+    return false;
+  }
+  let valueFingerPrint = linkedPIIFingerPrints[keyFingerPrint];
+  return verifyValueFingerPrint(str, valueFingerPrint);
 }
 
 function isLinkablePII(str) {
-  return linkablePIIFingerPrints.indexOf(takeFingerPrint(str)) > -1;
+  let keyFingerPrint = takeFingerPrint(str);
+  if (!linkablePIIFingerPrints.hasOwnProperty(keyFingerPrint)) {
+    return false;
+  }
+  let valueFingerPrint = linkablePIIFingerPrints[keyFingerPrint];
+  return verifyValueFingerPrint(str, valueFingerPrint);
+}
+
+function verifyValueFingerPrint(str, valueFingerPrint) {
+  switch (valueFingerPrint) {
+    case "string":
+      return true; // todo
+  }
+  return false;
 }
 
 // @TODO: Remove temp debugging function
