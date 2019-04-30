@@ -3,7 +3,7 @@
   "name": "Spilled",
   "version": "1.0",
   "description": "Identifies data on pages and in cookies",
-  "homepage_url": "https://github.com/PrinsFrank/WebExtension_Data_Leakage_Detector",
+  "homepage_url": "https://github.com/PrinsFrank/Spilled",
   "background": {
     "page": "html/background.html"
   },
