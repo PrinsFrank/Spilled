@@ -4,7 +4,7 @@ import {
   isOverviewTab,
   domainShouldBeChecked,
   getCleanDomainFromTab
-} from "../js/background/Modules/filters/cookie.js";
+} from "../../js/background/Modules/filters/cookie.js";
 
 test("Check overview tab", t => {
   t.is(true, isOverviewTab({ url: "moz-extension://foobar" }));

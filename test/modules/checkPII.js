@@ -2,7 +2,7 @@ import test from "ava";
 import {
   PIIpresent,
   verifyValueFingerPrint
-} from "../js/background/Modules/checkPII";
+} from "../../js/background/Modules/checkPII";
 
 test("Returns info when linked PII is present", t => {
   t.deepEqual(

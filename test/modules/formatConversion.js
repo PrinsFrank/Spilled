@@ -3,7 +3,7 @@ import {
   extractRecursively,
   getMeaningfulData,
   isValidJSON
-} from "../js/background/Modules/formatConversion";
+} from "../../js/background/Modules/formatConversion";
 
 test("Get meaningful values from booleans", t => {
   t.is("true", getMeaningfulData("1"));

@@ -3,7 +3,7 @@ import {
   getColor,
   getText,
   getCountFromMessages
-} from "../js/background/Modules/badge";
+} from "../../js/background/Modules/badge";
 
 test("Get correct color for number of messages", t => {
   t.is("#20FDC3", getColor(-1));

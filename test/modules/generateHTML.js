@@ -1,5 +1,5 @@
 import test from "ava";
-import { getHTMLListFromMessages } from "../js/background/Modules/generateHTML";
+import { getHTMLListFromMessages } from "../../js/background/Modules/generateHTML";
 
 test("Get HTML for domain with warnings", t => {
   t.is(

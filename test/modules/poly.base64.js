@@ -1,5 +1,5 @@
 import test from "ava";
-import { btoaPoly, atobPoly } from "../js/background/Modules/poly/base64.js";
+import { btoaPoly, atobPoly } from "../../js/background/Modules/poly/base64.js";
 
 test("Test BTOA poly output", t => {
   t.is("", btoaPoly());
