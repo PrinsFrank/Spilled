@@ -6,10 +6,11 @@ export function getHTMLListFromMessages(domains) {
     Object.keys(cookiesForDomain).forEach(cookieName => {
       let cookie = cookiesForDomain[cookieName];
       let warnings = cookie.warnings;
+      let score = getHighestScoreForCookie(cookie);
       if (Object.keys(warnings).length <= 0) {
         return;
       }
-      messageForDomain += "<h3>Cookie: " + cookieName + "</h3>";
+      messageForDomain += "<h3>" + score + " Cookie: " + cookieName + "</h3>";
       Object.keys(warnings).forEach(warningKey => {
         messageForDomain +=
           '<li class="warning ' +
@@ -26,4 +27,15 @@ export function getHTMLListFromMessages(domains) {
     }
   });
   return messageHtml;
+}
+
+function getHighestScoreForCookie(cookie) {
+  let highestScore = 0;
+  let scoresForCookie = cookie.score;
+  Object.keys(scoresForCookie).forEach(cookieScore => {
+    if (scoresForCookie[cookieScore] > highestScore) {
+      highestScore = scoresForCookie[cookieScore];
+    }
+  });
+  return highestScore;
 }

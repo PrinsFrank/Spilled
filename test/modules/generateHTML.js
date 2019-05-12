@@ -3,10 +3,11 @@ import { getHTMLListFromMessages } from "../../js/background/Modules/generateHTM
 
 test("Get HTML for domain with warnings", t => {
   t.is(
-    '<h2>Cookies for domain: test.tld</h2><h3>Cookie: Cookie Name</h3><li class="warning warning_key_1">Warning text</li><br><samp>Cookie value</samp>',
+    '<h2>Cookies for domain: test.tld</h2><h3>0 Cookie: Cookie Name</h3><li class="warning warning_key_1">Warning text</li><br><samp>Cookie value</samp>',
     getHTMLListFromMessages({
       "test.tld": {
         "Cookie Name": {
+          score: { none: 0 },
           warnings: { warning_key_1: "Warning text" },
           value: "Cookie value"
         }
@@ -21,6 +22,7 @@ test("Get HTML for domain without warnings", t => {
     getHTMLListFromMessages({
       "test.tld": {
         "Cookie Name": {
+          score: { none: 0 },
           warnings: {},
           value: "Cookie value"
         }
