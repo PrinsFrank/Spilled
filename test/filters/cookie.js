@@ -35,18 +35,32 @@ test("Parse cookies when there is readable data present", t => {
     {
       "example.com": {
         foo: {
+          score: {
+            none: 0
+          },
           value: "bar",
           warnings: { data_readable: "There is readable data present" }
         },
         foo2: {
+          score: {
+            none: 0
+          },
           value: "bar",
           warnings: { data_readable: "There is readable data present" }
         }
       }
     },
     parseCookies([
-      { name: "foo", domain: "example.com", value: "bar" },
-      { name: "foo2", domain: "example.com", value: "bar" }
+      {
+        name: "foo",
+        domain: "example.com",
+        value: "bar"
+      },
+      {
+        name: "foo2",
+        domain: "example.com",
+        value: "bar"
+      }
     ])
   );
 });
@@ -56,6 +70,9 @@ test("Parse cookies when there is extractable data present", t => {
     {
       "example.com": {
         foo: {
+          score: {
+            none: 0
+          },
           value: '{"test":"test"}',
           warnings: { data_extractable: "There is extractable data present" }
         }
@@ -72,6 +89,9 @@ test("Parse cookies when there is PII data present", t => {
     {
       "example.com": {
         foo: {
+          score: {
+            mitm_adjacent: 5.4
+          },
           value: '{"name":"test", "date_of_birth": "2000-01-01"}',
           warnings: {
             data_extractable: "There is extractable data present",

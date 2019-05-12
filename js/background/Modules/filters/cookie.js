@@ -1,5 +1,10 @@
 import { extractRecursively, getMeaningfulData } from "../formatConversion.js";
 import { PIIpresent } from "../checkPII.js";
+import {
+  getScoreNonHTTPOnlyXSS,
+  getScoreNonHTTPSAdjacentNetwork,
+  getScoreNonExploitable
+} from "../cvss/v3.js";
 
 export function parseCookies(cookies) {
   const collectedMessages = {};
@@ -19,7 +24,8 @@ export function parseCookie(cookie) {
   let extractedValue = extractRecursively(cookie.value);
   let parsedCookieInfo = {
     warnings: {},
-    value: cookie.value
+    value: cookie.value,
+    score: getScoreNonExploitable()
   };
 
   let meaningfulData = getMeaningfulData(cookie.value);
@@ -51,6 +57,7 @@ export function parseCookie(cookie) {
         '" : <b>' +
         data.value +
         "</b>";
+      parsedCookieInfo.score = getCVSSScore(cookie, data.type);
     });
   }
 
@@ -70,6 +77,17 @@ export function domainShouldBeChecked(domain) {
 
 export function getCleanDomainFromTab(tab) {
   return getCleanDomain(new URL(tab.url).hostname);
+}
+
+function getCVSSScore(cookie, PIIType) {
+  let isLinked = PIIType === "linked";
+  if (cookie.httpOnly) {
+    return getScoreNonHTTPOnlyXSS(isLinked);
+  }
+  if (!cookie.secure) {
+    return getScoreNonHTTPSAdjacentNetwork(isLinked);
+  }
+  return getScoreNonExploitable();
 }
 
 function getCleanDomain(domain) {

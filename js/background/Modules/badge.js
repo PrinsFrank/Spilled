@@ -1,5 +1,5 @@
-export function getText(count) {
-  return count.toString();
+export function getText(score) {
+  return score.toString();
 }
 
 export function getColor(count) {
@@ -14,14 +14,21 @@ export function getColor(count) {
   return "#E03C37";
 }
 
-export function getCountFromMessages(domains) {
-  let count = 0;
+export function getHighestScoreFromMessagesForDomain(domains) {
+  let highestScore = 0;
+  if (domains === false || Object.keys(domains).length === 0) {
+    return highestScore;
+  }
   Object.keys(domains).forEach(domain => {
     let cookiesForDomain = domains[domain];
     Object.keys(cookiesForDomain).forEach(cookieName => {
-      let warnings = cookiesForDomain[cookieName].warnings;
-      count += Object.keys(warnings).length;
+      let scoresForCookie = cookiesForDomain[cookieName].score;
+      Object.keys(scoresForCookie).forEach(cookieScore => {
+        if (scoresForCookie[cookieScore] > highestScore) {
+          highestScore = scoresForCookie[cookieScore];
+        }
+      });
     });
   });
-  return count;
+  return highestScore;
 }
