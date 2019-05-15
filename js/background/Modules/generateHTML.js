@@ -1,7 +1,9 @@
 export function getHTMLListFromMessages(domains) {
+  let warningHtml = "";
   let messageHtml = "";
   Object.keys(domains).forEach(domain => {
     let messageForDomain = "";
+    let highestScoreForDomain = 0;
     let cookiesForDomain = domains[domain];
     Object.keys(cookiesForDomain).forEach(cookieName => {
       let cookie = cookiesForDomain[cookieName];
@@ -9,6 +11,9 @@ export function getHTMLListFromMessages(domains) {
       let score = getHighestScoreForCookie(cookie);
       if (Object.keys(warnings).length <= 0) {
         return;
+      }
+      if (score > highestScoreForDomain) {
+        highestScoreForDomain = score;
       }
       messageForDomain += "<h3>" + score + " Cookie: " + cookieName + "</h3>";
       Object.keys(warnings).forEach(warningKey => {
@@ -22,11 +27,16 @@ export function getHTMLListFromMessages(domains) {
       messageForDomain += "<br><samp>" + cookie.value + "</samp>";
     });
     if (messageForDomain !== "") {
-      messageHtml += "<h2>Cookies for domain: " + domain + "</h2>";
-      messageHtml += messageForDomain;
+      if (highestScoreForDomain > 0) {
+        warningHtml += "<h2>Cookies for domain: " + domain + "</h2>";
+        warningHtml += messageForDomain;
+      } else {
+        messageHtml += "<h2>Cookies for domain: " + domain + "</h2>";
+        messageHtml += messageForDomain;
+      }
     }
   });
-  return messageHtml;
+  return warningHtml + messageHtml;
 }
 
 function getHighestScoreForCookie(cookie) {
