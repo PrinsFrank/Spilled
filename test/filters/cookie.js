@@ -30,7 +30,70 @@ test("Return if no cookies are set", t => {
   t.deepEqual({}, parseCookies({}));
 });
 
+test("Return nothing if nothing interesting is store in cookies", t => {
+  t.deepEqual(
+    {
+      "example.com": {
+        foo: {
+          score: {
+            none: 0
+          },
+          value: "test",
+          warnings: {}
+        },
+        foo2: {
+          score: {
+            none: 0
+          },
+          value: "test2",
+          warnings: {}
+        }
+      }
+    },
+    parseCookies([
+      {
+        name: "foo",
+        domain: "example.com",
+        value: "test"
+      },
+      {
+        name: "foo2",
+        domain: "example.com",
+        value: "test2"
+      }
+    ])
+  );
+});
+
 test("Parse cookies when there is PII data present", t => {
+  t.deepEqual(
+    {
+      "example.com": {
+        foo: {
+          score: {
+            xss_non_httponly: 6.5
+          },
+          value: '{"name":"test", "date_of_birth": "2000-01-01"}',
+          warnings: {
+            pii_present_dateofbirth:
+              'linkable PII found in json-value with key "dateofbirth" : <b>2000-01-01</b>',
+            pii_present_name:
+              'linked PII found in json-value with key "name" : <b>test</b>'
+          }
+        }
+      }
+    },
+    parseCookies([
+      {
+        name: "foo",
+        httpOnly: false,
+        secure: true,
+        domain: "example.com",
+        value:
+          "eyJuYW1lIjoidGVzdCIsICJkYXRlX29mX2JpcnRoIjogIjIwMDAtMDEtMDEifQ=="
+      }
+    ])
+  );
   t.deepEqual(
     {
       "example.com": {
@@ -51,6 +114,36 @@ test("Parse cookies when there is PII data present", t => {
     parseCookies([
       {
         name: "foo",
+        httpOnly: true,
+        secure: false,
+        domain: "example.com",
+        value:
+          "eyJuYW1lIjoidGVzdCIsICJkYXRlX29mX2JpcnRoIjogIjIwMDAtMDEtMDEifQ=="
+      }
+    ])
+  );
+  t.deepEqual(
+    {
+      "example.com": {
+        foo: {
+          score: {
+            none: 0
+          },
+          value: '{"name":"test", "date_of_birth": "2000-01-01"}',
+          warnings: {
+            pii_present_dateofbirth:
+              'linkable PII found in json-value with key "dateofbirth" : <b>2000-01-01</b>',
+            pii_present_name:
+              'linked PII found in json-value with key "name" : <b>test</b>'
+          }
+        }
+      }
+    },
+    parseCookies([
+      {
+        name: "foo",
+        httpOnly: true,
+        secure: true,
         domain: "example.com",
         value:
           "eyJuYW1lIjoidGVzdCIsICJkYXRlX29mX2JpcnRoIjogIjIwMDAtMDEtMDEifQ=="
