@@ -12,9 +12,7 @@ export function parseCookies(cookies) {
     return collectedMessages;
   }
   cookies.forEach(cookie => {
-    if (typeof collectedMessages[cookie.domain] === "undefined") {
-      collectedMessages[cookie.domain] = {};
-    }
+    collectedMessages[cookie.domain] = collectedMessages[cookie.domain] || {};
     collectedMessages[cookie.domain][cookie.name] = parseCookie(cookie);
   });
   return collectedMessages;
@@ -37,7 +35,7 @@ export function parseCookie(cookie) {
   }
 
   let presentPII = getPIIpresent(cookie.name, extractedValue);
-  if (typeof presentPII !== "undefined" && Object.keys(presentPII).length) {
+  if (Object.keys(presentPII).length > 0) {
     Object.keys(presentPII).forEach(name => {
       let data = presentPII[name];
       parsedCookieInfo.warnings["pii_present_" + name] =
@@ -73,7 +71,7 @@ export function getCleanDomainFromTab(tab) {
 
 function getCVSSScore(cookie, PIIType) {
   let isLinked = PIIType === "linked";
-  if (cookie.httpOnly) {
+  if (!cookie.httpOnly) {
     return getScoreNonHTTPOnlyXSS(isLinked);
   }
   if (!cookie.secure) {

@@ -15,7 +15,7 @@
   "scripts": {
     "lint": "eslint **/*.js",
     "fix": "eslint **/*.js --fix",
-    "test": "nyc --reporter=html --reporter=text ava"
+    "test": "npm run fix & nyc --reporter=html --reporter=text ava"
   },
   "nyc": {
     "all": true,
