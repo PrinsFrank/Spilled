@@ -30,60 +30,6 @@ test("Return if no cookies are set", t => {
   t.deepEqual({}, parseCookies({}));
 });
 
-test("Parse cookies when there is readable data present", t => {
-  t.deepEqual(
-    {
-      "example.com": {
-        foo: {
-          score: {
-            none: 0
-          },
-          value: "bar",
-          warnings: { data_readable: "There is readable data present" }
-        },
-        foo2: {
-          score: {
-            none: 0
-          },
-          value: "bar",
-          warnings: { data_readable: "There is readable data present" }
-        }
-      }
-    },
-    parseCookies([
-      {
-        name: "foo",
-        domain: "example.com",
-        value: "bar"
-      },
-      {
-        name: "foo2",
-        domain: "example.com",
-        value: "bar"
-      }
-    ])
-  );
-});
-
-test("Parse cookies when there is extractable data present", t => {
-  t.deepEqual(
-    {
-      "example.com": {
-        foo: {
-          score: {
-            none: 0
-          },
-          value: '{"test":"test"}',
-          warnings: { data_extractable: "There is extractable data present" }
-        }
-      }
-    },
-    parseCookies([
-      { name: "foo", domain: "example.com", value: "eyJ0ZXN0IjoidGVzdCJ9" }
-    ])
-  );
-});
-
 test("Parse cookies when there is PII data present", t => {
   t.deepEqual(
     {
@@ -94,7 +40,6 @@ test("Parse cookies when there is PII data present", t => {
           },
           value: '{"name":"test", "date_of_birth": "2000-01-01"}',
           warnings: {
-            data_extractable: "There is extractable data present",
             pii_present_dateofbirth:
               'linkable PII found in json-value with key "dateofbirth" : <b>2000-01-01</b>',
             pii_present_name:

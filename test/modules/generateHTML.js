@@ -3,7 +3,7 @@ import { getHTMLListFromMessages } from "../../js/background/Modules/generateHTM
 
 test("Get HTML for domain with warnings", t => {
   t.is(
-    '<h2>Cookies for domain: test.tld</h2><h3>0 Cookie: Cookie Name</h3><li class="warning warning_key_1">Warning text</li><br><samp>Cookie value</samp>',
+    '<h2>Cookies for domain: test.tld</h2><h3>Cookie: Cookie Name</h3><li class="warning warning_key_1">Warning text</li>',
     getHTMLListFromMessages({
       "test.tld": {
         "Cookie Name": {

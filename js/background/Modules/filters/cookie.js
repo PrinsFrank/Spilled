@@ -1,5 +1,5 @@
 import { extractRecursively, getMeaningfulData } from "../formatConversion.js";
-import { PIIpresent } from "../checkPII.js";
+import { getPIIpresent } from "../checkPII.js";
 import {
   getScoreNonHTTPOnlyXSS,
   getScoreNonHTTPSAdjacentNetwork,
@@ -28,23 +28,15 @@ export function parseCookie(cookie) {
     score: getScoreNonExploitable()
   };
 
-  let meaningfulData = getMeaningfulData(cookie.value);
-  if (meaningfulData !== false) {
-    parsedCookieInfo.value = meaningfulData;
-    parsedCookieInfo.warnings.data_readable = "There is readable data present";
-  }
-
   let meaningfulExtractedData = getMeaningfulData(extractedValue);
   if (
-    meaningfulExtractedData !== meaningfulData &&
+    meaningfulExtractedData !== cookie.value &&
     meaningfulExtractedData !== false
   ) {
     parsedCookieInfo.value = meaningfulExtractedData;
-    parsedCookieInfo.warnings.data_extractable =
-      "There is extractable data present";
   }
 
-  let presentPII = PIIpresent(cookie.name, extractedValue);
+  let presentPII = getPIIpresent(cookie.name, extractedValue);
   if (typeof presentPII !== "undefined" && Object.keys(presentPII).length) {
     Object.keys(presentPII).forEach(name => {
       let data = presentPII[name];

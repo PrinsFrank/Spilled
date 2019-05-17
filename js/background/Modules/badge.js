@@ -2,12 +2,12 @@ export function getText(score) {
   return score.toString();
 }
 
-export function getColor(count) {
-  if (count <= 0) {
+export function getColor(score) {
+  if (score <= 0) {
     return "#20FDC3";
   }
 
-  if (count <= 5) {
+  if (score <= 5) {
     return "#EBE13D";
   }
 

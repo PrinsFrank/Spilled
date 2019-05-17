@@ -5,7 +5,7 @@ import { isValidJSON } from "./formatConversion.js";
 let linkedPIIFingerPrints = PIIfingerprints.linked;
 let linkablePIIFingerPrints = PIIfingerprints.linkable;
 
-export function PIIpresent(name, value) {
+export function getPIIpresent(name, value) {
   let normalizedName = takeFingerPrint(name);
   let presentPII = {};
 
@@ -55,26 +55,14 @@ export function PIIpresent(name, value) {
 
 function isLinkedPII(str) {
   let keyFingerPrint = takeFingerPrint(str);
-  if (!linkedPIIFingerPrints.hasOwnProperty(keyFingerPrint)) {
-    return false;
+  if (linkedPIIFingerPrints.hasOwnProperty(keyFingerPrint)) {
+    return true;
   }
-  let valueFingerPrint = linkedPIIFingerPrints[keyFingerPrint];
-  return verifyValueFingerPrint(str, valueFingerPrint);
 }
 
 function isLinkablePII(str) {
   let keyFingerPrint = takeFingerPrint(str);
-  if (!linkablePIIFingerPrints.hasOwnProperty(keyFingerPrint)) {
-    return false;
+  if (linkablePIIFingerPrints.hasOwnProperty(keyFingerPrint)) {
+    return true;
   }
-  let valueFingerPrint = linkablePIIFingerPrints[keyFingerPrint];
-  return verifyValueFingerPrint(str, valueFingerPrint);
-}
-
-export function verifyValueFingerPrint(str, valueFingerPrint) {
-  switch (valueFingerPrint) {
-    case "string":
-      return true; // todo
-  }
-  return false;
 }
