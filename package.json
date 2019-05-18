@@ -13,11 +13,29 @@
     "prettier": "^1.17.0",
     "web-ext": "^3.0.0"
   },
+  "webExt": {
+    "artifactsDir": "build",
+    "build":{
+      "overwriteDest": true
+    },
+    "lint":{
+      "warningsAsErrors": true
+    },
+    "ignoreFiles": [
+      "coverage/",
+      "package.json",
+      "package-lock.json",
+      "test/",
+      "README.md"
+    ]
+  },
   "scripts": {
-    "lint-js": "eslint **/*.js",
-    "lint-js-fix": "eslint **/*.js --fix",
-    "test": "nyc --reporter=html --reporter=text ava",
-    "lint-web-ext": "web-ext lint --warnings-as-errors --ignore-files=coverage/ .nyc_output/"
+    "build": "web-ext build",
+    "fix:js": "eslint **/*.js --fix",
+    "lint:js": "eslint **/*.js",
+    "lint:web-ext": "web-ext lint",
+    "run:firefox": "web-ext run --verbose",
+    "test": "nyc --reporter=html --reporter=text ava"
   },
   "nyc": {
     "all": true,

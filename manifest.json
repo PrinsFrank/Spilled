@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Spilled",
-  "version": "1.0",
-  "description": "Identifies data on pages and in cookies",
+  "version":"0.1",
+  "description": "Detects exploitable storage of private info in cookies",
   "homepage_url": "https://github.com/PrinsFrank/Spilled",
   "background": {
     "page": "html/background.html"
