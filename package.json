@@ -10,6 +10,7 @@
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
     "esm": "^3.2.22",
+    "husky": "^2.3.0",
     "nyc": "^14.0.0",
     "prettier": "^1.17.0",
     "web-ext": "^3.0.0"
@@ -32,6 +33,7 @@
   },
   "scripts": {
     "build": "npm run test && npm run lint:web-ext && npm run lint:js && web-ext build",
+    "pre-commit": "npm run test && npm run lint:web-ext && npm run fix:js",
     "fix:js": "eslint **/*.js --fix",
     "lint:js": "eslint **/*.js",
     "lint:web-ext": "web-ext lint",
@@ -48,6 +50,11 @@
       "js/background/main.js",
       "js/background/BrowserAPI/"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit"
+    }
   },
   "repository": {
     "type": "git",
