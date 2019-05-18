@@ -5,6 +5,7 @@
   "main": "",
   "devDependencies": {
     "ava": "^1.4.1",
+    "browser-env": "^3.2.6",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-prettier": "^3.0.1",
@@ -15,10 +16,10 @@
   },
   "webExt": {
     "artifactsDir": "build",
-    "build":{
+    "build": {
       "overwriteDest": true
     },
-    "lint":{
+    "lint": {
       "warningsAsErrors": true
     },
     "ignoreFiles": [
@@ -60,7 +61,8 @@
   "homepage": "https://github.com/PrinsFrank/Spilled#readme",
   "ava": {
     "require": [
-      "esm"
+      "esm",
+      "./test/_setup.js"
     ]
   },
   "dependencies": {}

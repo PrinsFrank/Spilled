@@ -76,9 +76,9 @@ test("Parse cookies when there is PII data present", t => {
           value: '{"name":"test", "date_of_birth": "2000-01-01"}',
           warnings: {
             pii_present_dateofbirth:
-              'linkable PII found in json-value with key "dateofbirth" : <b>2000-01-01</b>',
+              'linkable PII found in json-value with key "dateofbirth" : "2000-01-01"',
             pii_present_name:
-              'linked PII found in json-value with key "name" : <b>test</b>'
+              'linked PII found in json-value with key "name" : "test"'
           }
         }
       }
@@ -104,9 +104,9 @@ test("Parse cookies when there is PII data present", t => {
           value: '{"name":"test", "date_of_birth": "2000-01-01"}',
           warnings: {
             pii_present_dateofbirth:
-              'linkable PII found in json-value with key "dateofbirth" : <b>2000-01-01</b>',
+              'linkable PII found in json-value with key "dateofbirth" : "2000-01-01"',
             pii_present_name:
-              'linked PII found in json-value with key "name" : <b>test</b>'
+              'linked PII found in json-value with key "name" : "test"'
           }
         }
       }
@@ -132,9 +132,9 @@ test("Parse cookies when there is PII data present", t => {
           value: '{"name":"test", "date_of_birth": "2000-01-01"}',
           warnings: {
             pii_present_dateofbirth:
-              'linkable PII found in json-value with key "dateofbirth" : <b>2000-01-01</b>',
+              'linkable PII found in json-value with key "dateofbirth" : "2000-01-01"',
             pii_present_name:
-              'linked PII found in json-value with key "name" : <b>test</b>'
+              'linked PII found in json-value with key "name" : "test"'
           }
         }
       }
