@@ -31,7 +31,7 @@
     ]
   },
   "scripts": {
-    "build": "web-ext build",
+    "build": "npm run test && npm run lint:web-ext && npm run lint:js && web-ext build",
     "fix:js": "eslint **/*.js --fix",
     "lint:js": "eslint **/*.js",
     "lint:web-ext": "web-ext lint",
