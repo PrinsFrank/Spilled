@@ -10,12 +10,13 @@
     "eslint-plugin-prettier": "^3.0.1",
     "esm": "^3.2.22",
     "nyc": "^14.0.0",
-    "prettier": "^1.17.0"
+    "prettier": "^1.17.0",
+    "web-ext": "^3.0.0"
   },
   "scripts": {
     "lint": "eslint **/*.js",
-    "fix": "eslint **/*.js --fix",
-    "test": "npm run fix & nyc --reporter=html --reporter=text ava"
+    "lint-fix": "eslint **/*.js --fix",
+    "test": "npm run lint-fix & nyc --reporter=html --reporter=text ava"
   },
   "nyc": {
     "all": true,
