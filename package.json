@@ -14,9 +14,10 @@
     "web-ext": "^3.0.0"
   },
   "scripts": {
-    "lint": "eslint **/*.js",
-    "lint-fix": "eslint **/*.js --fix",
-    "test": "npm run lint-fix & nyc --reporter=html --reporter=text ava"
+    "lint-js": "eslint **/*.js",
+    "lint-js-fix": "eslint **/*.js --fix",
+    "test": "nyc --reporter=html --reporter=text ava",
+    "lint-web-ext": "web-ext lint --warnings-as-errors --ignore-files=coverage/ .nyc_output/"
   },
   "nyc": {
     "all": true,
