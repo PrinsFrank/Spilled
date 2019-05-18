@@ -1,18 +1,26 @@
 import parseCookiesForTab from "./background/BrowserAPI/cookies.js";
-import { getHTMLListFromMessages } from "./background/Modules/generateHTML.js";
+import {
+  getHTMLListFromMessages,
+  getHTMLNoContent
+} from "./background/Modules/generateHTML.js";
 
 var API = chrome || browser;
 
 const messageContainer = document.getElementById("message-container");
 
 function updateMessageContent(tabId, messages) {
-  if (messages === false || Object.keys(messages).length === 0) {
-    messageContainer.innerHTML =
-      "<li>No Information available for this domain</li>";
-    return;
+  let content;
+
+  if (messages !== false && Object.keys(messages).length > 0) {
+    content = getHTMLListFromMessages(messages);
+  } else {
+    content = getHTMLNoContent();
   }
 
-  messageContainer.innerHTML = getHTMLListFromMessages(messages);
+  while (messageContainer.firstChild) {
+    messageContainer.removeChild(messageContainer.firstChild);
+  }
+  messageContainer.appendChild(content);
 }
 
 API.tabs.query({ currentWindow: true, active: true }, tab => {

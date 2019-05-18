@@ -44,9 +44,9 @@ export function parseCookie(cookie) {
         data.context +
         ' with key "' +
         name +
-        '" : <b>' +
+        '" : "' +
         data.value +
-        "</b>";
+        '"';
       parsedCookieInfo.score = getCVSSScore(cookie, data.type);
     });
   }
