@@ -40,7 +40,7 @@ To following commands are available (in PHPstorm avaible with alt+f11):
 
 ## Chrome
 - Go to [chrome://extensions/](chrome://extensions/).
-- Enable "Developer mode" in the thop right hand corner.
+- Enable "Developer mode" in the top right hand corner.
 - Click on "Load extracted extension".
 - Navigate to the directory __above__ where this repo is present.
 - Click on the folder, and subsequently click on "Select folder".
