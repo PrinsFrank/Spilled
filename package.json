@@ -13,10 +13,11 @@
     "husky": "^2.3.0",
     "nyc": "^14.0.0",
     "prettier": "^1.17.0",
+    "puppeteer": "^1.16.0",
     "web-ext": "^3.0.0"
   },
   "webExt": {
-    "artifactsDir": "build",
+    "artifactsDir": "build/extension",
     "build": {
       "overwriteDest": true
     },
@@ -35,6 +36,7 @@
     "build": "npm run test && npm run lint:web-ext && npm run lint:js && web-ext build",
     "pre-commit": "npm run test && npm run lint:web-ext && npm run fix:js",
     "fix:js": "eslint **/*.js --fix",
+    "generate:screenshot": "node build/screenshot.js",
     "lint:js": "eslint **/*.js",
     "lint:web-ext": "web-ext lint",
     "run:firefox": "web-ext run --verbose",

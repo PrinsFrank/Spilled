@@ -1,4 +1,4 @@
 .nyc_output
-build
+build/extension
 coverage
 node_modules
