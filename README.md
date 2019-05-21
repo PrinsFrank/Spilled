@@ -20,11 +20,16 @@ To initialize npm, run:
 npm install
 ```
 To following commands are available (in PHPstorm avaible with alt+f11):
-```
-npm run lint
-npm run fix
-npm run test
-```
+
+`npm run build` Runs all tests and builds on success to `build/extension/spilled-{VERSION}.zip` <br>
+`npm run pre-commit` Runs all tests before commit <br>
+`npm run fix:js` Fixes JS <br>
+`npm run generate:screenshot` Takes screenshots in chrome <br>
+`npm run lint:js` Checks JS files <br>
+`npm run lint:web-ext` Checks for web-ext errors <br>
+`npm run run:firefox` Runs in Firefox <br>
+`npm run test` Run tests <br>
+
 
 # Install temporary Extension (Recommended)
 
