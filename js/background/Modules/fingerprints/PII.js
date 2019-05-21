@@ -24,7 +24,7 @@ export default {
     phonenumber: "string",
     preferredname: "string",
     socialsecurity: "string",
-    socialsecurity_number: "string",
+    socialsecuritynumber: "string",
     ssn: "string",
     telephone: "string",
     telephonenumber: "string"
