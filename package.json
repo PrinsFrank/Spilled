@@ -33,7 +33,7 @@
     ]
   },
   "scripts": {
-    "build": "npm run test && npm run lint:web-ext && npm run lint:js && web-ext build",
+    "build": "npm run test && npm run lint:web-ext && npm run lint:js && web-ext build && npm run generate:screenshot",
     "pre-commit": "npm run test && npm run lint:web-ext && npm run fix:js",
     "fix:js": "eslint **/*.js --fix",
     "generate:screenshot": "node build/screenshot.js",
