@@ -26,7 +26,7 @@ npm run fix
 npm run test
 ```
 
-# Install temporary Extension
+# Install temporary Extension (Recommended)
 
 ## Firefox
 - Go to [about:debugging](about:debugging).
@@ -39,3 +39,8 @@ npm run test
 - Click on "Load extracted extension".
 - Navigate to the directory __above__ where this repo is present.
 - Click on the folder, and subsequently click on "Select folder".
+
+# Install permanent extension
+I don't recommend installing any permanent extension, but for your convenience and to prevent fake copies i submitted this extension to the chrome(pending review) and Firefox store.
+
+[![Download for Firefox](./icons/firefox_addon.png)](https://addons.mozilla.org/en-US/firefox/addon/spilled/)
