@@ -46,6 +46,7 @@ To following commands are available (in PHPstorm avaible with alt+f11):
 - Click on the folder, and subsequently click on "Select folder".
 
 # Install permanent extension
-I don't recommend installing any permanent extension, but for your convenience and to prevent fake copies i submitted this extension to the chrome(pending review) and Firefox store.
+I don't recommend installing any permanent extension, but for your convenience and to prevent fake copies i submitted this extension to the Chrome and Firefox store.
 
 [![Download for Firefox](./icons/firefox_addon.png)](https://addons.mozilla.org/en-US/firefox/addon/spilled/)
+[![Download for Chrome](./icons/chrome_addon.png)](https://chrome.google.com/webstore/detail/spilled/eemcjnefigpbpofkmbidicimickmokch)
