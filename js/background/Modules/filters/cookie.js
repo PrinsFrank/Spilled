@@ -54,13 +54,6 @@ export function parseCookie(cookie) {
   return parsedCookieInfo;
 }
 
-export function isOverviewTab(tab) {
-  return (
-    tab.url.startsWith("moz-extension://") ||
-    tab.url.startsWith("chrome-extension://")
-  );
-}
-
 export function domainShouldBeChecked(domain) {
   return domain !== "";
 }

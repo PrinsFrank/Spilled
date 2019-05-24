@@ -1,16 +1,9 @@
 import test from "ava";
 import {
   parseCookies,
-  isOverviewTab,
   domainShouldBeChecked,
   getCleanDomainFromTab
 } from "../../js/background/Modules/filters/cookie.js";
-
-test("Check overview tab", t => {
-  t.is(true, isOverviewTab({ url: "moz-extension://foobar" }));
-  t.is(true, isOverviewTab({ url: "chrome-extension://foobar" }));
-  t.is(false, isOverviewTab({ url: "www.example.com" }));
-});
 
 test("Check if domain should be checked", t => {
   t.is(true, domainShouldBeChecked("www.example.com"));

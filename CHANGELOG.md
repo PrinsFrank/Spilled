@@ -6,8 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+- Example page where can be seen what is visible when data is found as it is not that common
 - More fingerprints of personal information that have been found in the wild
 - Link to extension store location in docs
+- Onboarding and upboarding pages
 
 ### Changed
 - Developer documentation and tools have been improved (automated screenshots, precommit commands)
