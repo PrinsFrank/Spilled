@@ -5,7 +5,7 @@
   "description": "Detects exploitable storage of private info in cookies",
   "homepage_url": "https://github.com/PrinsFrank/Spilled",
   "background": {
-    "page": "html/background.html"
+    "page": "views/background.html"
   },
   "permissions": [
     "tabs",
@@ -14,7 +14,7 @@
   ],
   "browser_action": {
     "browser_style": true,
-    "default_popup": "html/popup.html",
+    "default_popup": "views/popup.html",
     "default_title": "Spilled",
     "default_icon": {
       "16": "icons/favicon-16.png",

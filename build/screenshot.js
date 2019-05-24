@@ -24,7 +24,7 @@ const extensionPath = require("path").join(__dirname, "../");
   const extensionUrl = extensionTarget._targetInfo.url || "";
   const [, , extensionID] = extensionUrl.split("/");
 
-  await page.goto(`chrome-extension://${extensionID}/html/overview.html`);
+  await page.goto(`chrome-extension://${extensionID}/views/overview.html`);
 
   await page.screenshot({ path: "build/screenshot/1280_800_no_results.png" });
 
