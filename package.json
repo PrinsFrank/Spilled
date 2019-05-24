@@ -36,7 +36,7 @@
     "build": "npm run test && npm run lint:web-ext && npm run lint:js && web-ext build && npm run generate:screenshot",
     "pre-commit": "npm run test && npm run lint:web-ext && npm run fix:js",
     "fix:js": "eslint **/*.js --fix",
-    "generate:screenshot": "node build/screenshot.js",
+    "generate:screenshots": "node build/screenshot.js",
     "lint:js": "eslint **/*.js",
     "lint:web-ext": "web-ext lint",
     "run:firefox": "web-ext run --verbose",

@@ -25,8 +25,17 @@ const extensionPath = require("path").join(__dirname, "../");
   const [, , extensionID] = extensionUrl.split("/");
 
   await page.goto(`chrome-extension://${extensionID}/views/overview.html`);
-
   await page.screenshot({ path: "build/screenshot/1280_800_no_results.png" });
+
+  await page.goto(
+    `chrome-extension://${extensionID}/views/overview.html?example_content=true`
+  );
+  await page.screenshot({
+    path: "build/screenshot/1280_800_example_overview.png"
+  });
+
+  await page.goto(`chrome-extension://${extensionID}/views/onboard.html`);
+  await page.screenshot({ path: "build/screenshot/1280_800_onboarding.png" });
 
   await browser.close();
 })();
